@@ -124,31 +124,32 @@
         aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu">Menu</span>
       </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-              </li>
-            </ul>
-            </form>
-          </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        </form>
+      </div>
 
     </div>
   </nav>
@@ -223,21 +224,21 @@
           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
             <div class="mb-4 mb-md-0 mr-5">
               <div class="job-post-item-header d-flex align-items-center">
-                <h2 class="mr-3 text-black h3">{{ hit['_source']['title'] }}</h2>
+                <h2 class="mr-3 text-black h3">{{ hit['_source']['text_entry'] }}</h2>
                 <div class="badge-wrap">
-                  {% for label in  hit['_source']['labels']  %}
-                  <span class="bg-secondary text-white badge py-2 px-3">{{label}}</span>
+                  {% for label in  hit['_source']['play_name']  %}
+                  <span class="bg-secondary text-white badge py-2 px-3">{{play_name}}</span>
                   {% endfor %}
                 </div>
               </div>
               <div class="job-post-item-body d-block d-md-flex">
                 <div class="mr-3"><i class="fa fa-arrow-up" aria-hidden="true"></i>
                   <span>{{ hit['_source']['upvote'] }}</span></div>
-                <div><span class="icon-layers"></span><a href="/"> {{ hit['_source']['topic'] }}</a></div>
+                <div><span class="icon-layers"></span><a href="/"> {{ hit['_source']['speaker'] }}</a></div>
               </div>
             </div>
             <div class="ml-auto d-flex">
-              <a href="{{ hit['_source']['url'] }}" target="_blank" class="btn btn-primary py-2 mr-1">Visit Tutorial</a>
+              <a href="{{ hit['_source']['url'] }}" target="_blank" class="btn btn-primary py-2 mr-1">Details</a>
             </div>
           </div>
         </div><!-- end -->

@@ -8,7 +8,8 @@ search_term = ""
 
 headers = {"Content-Type": "application/json", "cache-control": "no-cache"}
 
-host = "localhost:9200"
+# host = "localhost:9200"
+host = "2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name:9200"
 
 
 @search_blueprint.route("/", methods=["GET", "POST"], endpoint="index")
@@ -26,14 +27,15 @@ def index():
                     "query_string": {
                         "analyze_wildcard": True,
                         "query": str(search_term),
-                        "fields": ["topic", "title", "url", "labels"],
+                        # "fields": ["topic", "title", "url", "labels"],
+                        "fields": ["text_entry"],
                     }
                 },
                 "size": 50,
                 "sort": [],
             }
             payload = json.dumps(payload)
-            url = "http://{}/hacker/tutorials/_search".format(host)
+            url = "http://{}/shakespeare*/_search".format(host)
             response = requests.request("GET", url, data=payload, headers=headers)
             response_dict_data = json.loads(str(response.text))
             return render_template("index.html", res=response_dict_data)
@@ -46,11 +48,14 @@ def autocomplete():
         print("POST request called")
         print(search_term)
         payload = {
-            "autocomplete": {"text": str(search_term), "completion": {"field": "title_suggest"}}
+            "suggest": {
+                "my-suggestion": {"text": str(search_term), "term": {"field": "text_entry"}}
+            }
         }
         payload = json.dumps(payload)
-        url = "http://{}/autocomplete/_suggest".format(host)
+        url = "http://{}/shakespeare*/_search".format(host)
         response = requests.request("GET", url, data=payload, headers=headers)
         response_dict_data = json.loads(str(response.text))
+        print(response_dict_data)
         return json.dumps(response_dict_data)
 
