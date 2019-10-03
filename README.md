@@ -25,7 +25,8 @@ This repo is to build a website for searching in ElasticSearch. We have a user-f
 ├── requirements.txt
 ├── routes
 │   ├── __init__.py
-│   ├── __pycache__
+│   ├── dbconnect.py
+│   ├── login.py
 │   └── search.py
 ├── static
 │   ├── __init__.py
@@ -38,7 +39,12 @@ This repo is to build a website for searching in ElasticSearch. We have a user-f
 │   └── scss
 └── templates
     ├── __init__.py
+    ├── _formhelpers.html
+    ├── home.html
     ├── index.html
+    ├── login.html
+    ├── register.html
+    ├── scholarly.jpg
     └── search.html
 ```
 
