@@ -3,7 +3,6 @@ import requests, json
 
 # creating a Blueprint class
 search_blueprint = Blueprint("search", __name__, template_folder="templates")
-search_term = ""
 
 
 headers = {"Content-Type": "application/json", "cache-control": "no-cache"}
