@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--  meta data  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+
+
+
+
+</head>
+
+{% block body %}
+
+<body style="background-image:url('https://www.atimeofmyown.com/uploads/5/1/1/6/51161337/1312808.jpg?646')">
+	<div class = "container" style="margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  background-color: #DCDCDC;
+  padding: 10px;">
+		<h4>Registration Form</h4>
+		<br>
+		{% from "_formhelpers.html" import render_field %}
+		<form method=post action="/register/">
+			<dl>
+				{{render_field(form.username)}}
+				{{render_field(form.email)}}
+				{{render_field(form.password)}}
+				{{render_field(form.confirm)}}
+				{{render_field(form.accept_tos)}}
+			</dl>
+			<p><input type=submit value=Register></p>
+		</form>
+
+		{% if error %}
+			<p class="error"><strong>Error:</strong>{{error}}</p>
+		{% endif %}
+
+	</div>
+</body>
+
+{% endblock %}
