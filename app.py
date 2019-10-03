@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from routes.search import search_blueprint
-from routes.login import login_blueprint
+from routes.login import user_blueprint
 import os
 
 
@@ -20,7 +20,7 @@ def emitlogs():
 
 
 app.register_blueprint(search_blueprint, url_prefix="/search")
-app.register_blueprint(login_blueprint, url_prefix="/user")
+app.register_blueprint(user_blueprint, url_prefix="/user")
 
 if __name__ == "__main__":
 

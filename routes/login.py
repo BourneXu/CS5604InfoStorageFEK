@@ -16,16 +16,16 @@ import gc
 import os
 import sys
 
-login_blueprint = Blueprint("login", __name__, template_folder="templates")
+user_blueprint = Blueprint("user", __name__, template_folder="templates")
 
 
-@login_blueprint.route("/homepage")
+@user_blueprint.route("/")
 def homepage():
-    return render_template("index.html")
+    return redirect(url_for("user.login"))
 
 
-@login_blueprint.route("/login", methods=["GET", "POST"])
-def login_page():
+@user_blueprint.route("/login", methods=["GET", "POST"])
+def login():
     error = ""
     try:
         c, conn = connection()
@@ -43,13 +43,18 @@ def login_page():
                 session["username"] = request.form["username"]
 
                 flash("You are now logged in")
-                return render_template("home.html", error=error)
+                # return render_template("home.html", error=error)
+                return redirect(url_for("index"))
 
             else:
                 error = "Invalid credentials, try again."
 
         gc.collect()
+        return redirect(url_for("user.login"))
 
+    except Exception as e:
+        # flash(e)
+        error = "Invalid credentials, try again."
         return render_template("login.html", error=error)
 
     except Exception as e:
@@ -57,16 +62,11 @@ def login_page():
         error = "Invalid credentials, try again."
         return render_template("login.html", error=error)
 
-    except Exception as e:
-        # flash(e)
-        error = "Invalid credentials, try again."
-        return render_template("login.html", error=error)
 
-
-@login_blueprint.route("/logout")
+@user_blueprint.route("/logout")
 def logout():
     session["logged_in"] = False
-    return redirect(url_for("/homepage"))
+    return redirect(url_for("index"))
 
 
 class RegistrationForm(Form):
@@ -83,7 +83,7 @@ class RegistrationForm(Form):
     )
 
 
-@login_blueprint.route("/register/", methods=["GET", "POST"])
+@user_blueprint.route("/register/", methods=["GET", "POST"])
 def register_page():
     try:
         form = RegistrationForm(request.form)
