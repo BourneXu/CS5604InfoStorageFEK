@@ -111,6 +111,19 @@
       cursor: pointer;
       background-color: ButtonText;
     }
+
+    .button {
+      background-color: #1c87c9;
+      border: none;
+      color: white;
+      padding: 20px 34px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 20px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
   </style>
 
 </head>
@@ -175,31 +188,10 @@
 
                   <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
                     aria-labelledby="v-pills-nextgen-tab">
-                    <form action="/" method="post" class="search-job">
-                      <div class="row">
-                        <div class="col-md">
-                          <div class="form-group">
-                            <div class="form-field">
-                              <div class="icon"><span class="icon-search"></span></div>
-                              <input id="user_input" name="input" type="text" class="form-control"
-                                placeholder="Search for the ETD documents ...">
-                            </div>
-                          </div>
-                        </div>
 
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <div class="form-field">
-                              <input id="submit" type="submit" value="Search" class="form-control btn btn-primary">
-                            </div>
-                          </div>
-                        </div>
+                    <a href="/search" class="button">Searching for ETD</a>
+                    <a href="#" class="button">Searching for XXX</a>
 
-
-
-
-                      </div>
-                    </form>
                   </div>
 
 
@@ -211,47 +203,6 @@
       </div>
     </div>
   </div>
-
-
-
-  <section id="tutorial_section" class="ftco-section bg-light">
-    <div id="tutorial_lists" class="container">
-      <div class="row">
-
-
-        {% for hit in res['hits']['hits'] %}
-        <div class="col-md-12 ftco-animate">
-          <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-            <div class="mb-4 mb-md-0 mr-5">
-              <div class="job-post-item-header d-flex align-items-center">
-                <h2 class="mr-3 text-black h3">{{ hit['_source']['text_entry'] }}</h2>
-                <div class="badge-wrap">
-                  {% for label in  hit['_source']['play_name']  %}
-                  <span class="bg-secondary text-white badge py-2 px-3">{{play_name}}</span>
-                  {% endfor %}
-                </div>
-              </div>
-              <div class="job-post-item-body d-block d-md-flex">
-                <div class="mr-3"><i class="fa fa-arrow-up" aria-hidden="true"></i>
-                  <span>{{ hit['_source']['upvote'] }}</span></div>
-                <div><span class="icon-layers"></span><a href="/"> {{ hit['_source']['speaker'] }}</a></div>
-              </div>
-            </div>
-            <div class="ml-auto d-flex">
-              <a href="{{ hit['_source']['url'] }}" target="_blank" class="btn btn-primary py-2 mr-1">Details</a>
-            </div>
-          </div>
-        </div><!-- end -->
-        {% endfor %}
-
-      </div>
-    </div>
-  </section>
-
-
-
-
-
 
 
 
@@ -304,61 +255,6 @@
   <script src="static/js/main.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-  <script>
-    // autocomplete
-    $('#user_input').on('input', function (e) {
-      var user_input = $('#user_input').val();
-
-      var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "/autocomplete",
-        "method": "POST",
-        "headers": {
-
-          "cache-control": "no-cache",
-          "Postman-Token": "81c3e2dd-e8d2-40ce-ab12-8a720bfb0fe2"
-        },
-        "processData": false,
-        data: "input=" + user_input
-      }
-
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var obj = JSON.parse(response);
-        console.log("Object:", obj);
-        var data = obj.autocomplete;
-        console.log("Data:", data);
-        console.log(data.length);
-        title_data = data[0]["options"];
-        titles = []
-        for (var i = 0; i < title_data.length; i++) {
-          titles.push(title_data[i]["text"]);
-        }
-        console.log(titles);
-        $("#user_input").autocomplete({
-          source: titles
-        });
-
-
-      });
-    });
-
-    // drag to tutorial_list division
-
-    if ({{ res['hits']['total'] }}> 0) {
-      $('html, body').animate({
-        scrollTop: $("#tutorial_section").offset().top
-      }, 2000);
-      console.log("Called here")
-    }
-
-
-
-
-
-  </script>
 
 
 </body>
