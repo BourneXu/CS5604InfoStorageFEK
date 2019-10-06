@@ -21,11 +21,16 @@ user_blueprint = Blueprint("user", __name__, template_folder="templates")
 
 @user_blueprint.route("/")
 def homepage():
-    return redirect(url_for("user.login"))
+    return render_template("index.html", error=error)
 
 
-@user_blueprint.route("/login", methods=["GET", "POST"])
+@user_blueprint.route("/login/", methods=["GET", "POST"])
 def login():
+    return render_template("login.html")
+
+
+@user_blueprint.route("/loginprocess/", methods=["GET", "POST"])
+def loginprocess():
     error = ""
     try:
         c, conn = connection()
@@ -43,14 +48,14 @@ def login():
                 session["username"] = request.form["username"]
 
                 flash("You are now logged in")
-                # return render_template("home.html", error=error)
+                # return render_template("index.html", error=error)
                 return redirect(url_for("index"))
 
             else:
                 error = "Invalid credentials, try again."
 
         gc.collect()
-        return redirect(url_for("user.login"))
+        return render_template("index.html", error=error)
 
     except Exception as e:
         # flash(e)
@@ -62,8 +67,7 @@ def login():
         error = "Invalid credentials, try again."
         return render_template("login.html", error=error)
 
-
-@user_blueprint.route("/logout")
+@user_blueprint.route("/logout/")
 def logout():
     session["logged_in"] = False
     return redirect(url_for("index"))
@@ -118,4 +122,3 @@ def register_page():
 
     except Exception as e:
         return str(e)
-

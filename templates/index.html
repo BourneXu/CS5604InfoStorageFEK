@@ -140,7 +140,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -161,8 +161,15 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <a href="/user/login" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Login </a>
-        <a href="/user/register" style="color:#FFF; padding: 10px; margin 5px; background-color: red;"> Register </a>
+
+        {% if session['logged_in'] %}
+        <a href="/user/logout/" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Logout </a>
+        {% else %}
+        <a href="/user/login/" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Login </a>
+        <a href="/user/register/" style="color:#FFF; padding: 10px; margin 5px; background-color: red;"> Register </a>
+        {% endif %}
+
+
         </form>
         </form>
       </div>

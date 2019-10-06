@@ -23,6 +23,5 @@ app.register_blueprint(search_blueprint, url_prefix="/search")
 app.register_blueprint(user_blueprint, url_prefix="/user")
 
 if __name__ == "__main__":
-
     app.secret_key = os.urandom(12)
     app.run("0.0.0.0", port=3000, debug=False, threaded=True)
