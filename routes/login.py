@@ -116,7 +116,7 @@ def register_page():
                 session["logged_in"] = True
                 session["username"] = username
 
-                return render_template("index.html")
+                return redirect(url_for("index"))
 
         return render_template("register.html", form=form)
 
