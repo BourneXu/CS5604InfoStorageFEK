@@ -98,9 +98,13 @@ def register_page():
             password = sha256_crypt.encrypt((str(form.password.data)))
             c, conn = connection()
             x = c.execute("SELECT * FROM users WHERE username = (%s)", (username))
+            y = c.execute("SELECT * FROM users WHERE email = (%s)", (email))
 
             if int(x) > 0:
                 flash("That username is already taken, please choose another")
+                return render_template("register.html", form=form)
+            if int(y) > 0:
+                flash("That email is already taken, please choose another")
                 return render_template("register.html", form=form)
 
             else:
