@@ -1,0 +1,2 @@
+body{background:#f3f3f3}.container{width:100%;display:grid;grid-template-columns:.3fr 1fr;grid-gap:10px}.container .filter{box-shadow:0 0 1px rgba(0,0,0,.2);padding:10px;margin:10px auto;background:#fff;color:#424242}.container .result{margin:10px 20px}.placeholder{border:1px dashed #424242;padding:10px;margin:10px auto;background:#fff}@media (max-width:768px){.container{grid-template-columns:auto}.container .result{margin:10px 0}}
+/*# sourceMappingURL=main.5a338505.chunk.css.map */
