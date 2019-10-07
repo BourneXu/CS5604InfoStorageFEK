@@ -4,7 +4,7 @@ import pymysql
 
 
 def connection():
-    conn = pymysql.connect("localhost","root","Autumn","CS5604" )
+    conn = pymysql.connect("localhost","root","Autumn","CS5604" ) # CSD@mysql-1872
 
     c = conn.cursor()
 
