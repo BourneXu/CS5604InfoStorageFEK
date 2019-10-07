@@ -55,7 +55,8 @@ def loginprocess():
                 error = "Invalid credentials, try again."
 
         gc.collect()
-        return render_template("index.html", error=error)
+        return redirect(url_for("login"), error=error)
+        # return render_template("index.html", error=error)
 
     except Exception as e:
         # flash(e)
@@ -90,6 +91,7 @@ class RegistrationForm(Form):
 @user_blueprint.route("/register/", methods=["GET", "POST"])
 def register_page():
     try:
+        error = ""
         form = RegistrationForm(request.form)
 
         if request.method == "POST" and form.validate():
@@ -101,11 +103,13 @@ def register_page():
             y = c.execute("SELECT * FROM users WHERE email = (%s)", (email))
 
             if int(x) > 0:
-                flash("That username is already taken, please choose another")
-                return render_template("register.html", form=form)
+                error = "That username is already taken, please choose another."
+                flash("That username is already taken, please choose another.")
+                return render_template("register.html", form=form, error = error)
             if int(y) > 0:
-                flash("That email is already taken, please choose another")
-                return render_template("register.html", form=form)
+                error = "That email is already taken, please choose another."
+                flash("That email is already taken, please choose another.")
+                return render_template("register.html", form=form, error = error)
 
             else:
                 c.execute(

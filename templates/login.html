@@ -9,6 +9,9 @@
 		<br>
 		<h4>Please Login:</h4>
 		<br>
+		{% if error %}
+			<p style="color: red"><strong>Error: </strong>{{error}}</p>
+		{% endif %}
 		<form action="/user/loginprocess/" class="form-inline" method="post">
 			<input type="text" class="form-control" placeholder="Username" name="username" value="">
 			<input type="password" class="form-control" placeholder="Password" name="password" value="">
