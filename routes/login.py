@@ -68,6 +68,7 @@ def loginprocess():
         error = "Invalid credentials, try again."
         return render_template("login.html", error=error)
 
+
 @user_blueprint.route("/logout/")
 def logout():
     session["logged_in"] = False
@@ -105,11 +106,11 @@ def register_page():
             if int(x) > 0:
                 error = "That username is already taken, please choose another."
                 flash("That username is already taken, please choose another.")
-                return render_template("register.html", form=form, error = error)
+                return render_template("register.html", form=form, error=error)
             if int(y) > 0:
                 error = "That email is already taken, please choose another."
                 flash("That email is already taken, please choose another.")
-                return render_template("register.html", form=form, error = error)
+                return render_template("register.html", form=form, error=error)
 
             else:
                 c.execute(
