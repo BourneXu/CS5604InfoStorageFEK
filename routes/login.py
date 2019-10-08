@@ -40,12 +40,16 @@ def loginprocess():
             data = c.execute(
                 "SELECT * FROM users WHERE username = (%s) or email = (%s)", (userInput, userInput)
             )
-            # print(data, file=sys.stderr)
-            data = c.fetchone()[2]
 
-            if sha256_crypt.verify(request.form["password"], data):
+            # print(data, file=sys.stderr)
+            data = c.fetchone();
+            pword = data[2];
+            uname = data[1];
+            # uname = c.fetchone()[1];
+
+            if sha256_crypt.verify(request.form["password"], pword):
                 session["logged_in"] = True
-                session["username"] = request.form["username"]
+                session["username"] = uname;
 
                 flash("You are now logged in")
                 # return render_template("index.html", error=error)
@@ -67,6 +71,7 @@ def loginprocess():
         # flash(e)
         error = "Invalid credentials, try again."
         return render_template("login.html", error=error)
+
 
 @user_blueprint.route("/logout/")
 def logout():
@@ -105,11 +110,11 @@ def register_page():
             if int(x) > 0:
                 error = "That username is already taken, please choose another."
                 flash("That username is already taken, please choose another.")
-                return render_template("register.html", form=form, error = error)
+                return render_template("register.html", form=form, error=error)
             if int(y) > 0:
                 error = "That email is already taken, please choose another."
                 flash("That email is already taken, please choose another.")
-                return render_template("register.html", form=form, error = error)
+                return render_template("register.html", form=form, error=error)
 
             else:
                 c.execute(
