@@ -39,7 +39,7 @@
 <body>
 
   <!-- Navigation -->
-  
+
 
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
@@ -75,6 +75,7 @@
 		<!-- <nav align="right"> -->
 		  {% if session['logged_in'] %}
 		  <div class="btn-group">
+      <p style="color:black;"> Hi {{ session['username'] }}. &nbsp &nbsp </p>
 		  <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
 		  </div
 		  {% else %}
@@ -125,7 +126,7 @@
         </div>
 		</div>
       <div class="row">
-        
+
 			<div class="container">
 		​	  <div class="col-md-12 text-center">
 		​
