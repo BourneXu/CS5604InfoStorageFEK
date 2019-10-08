@@ -163,6 +163,7 @@
         </ul>
 
         {% if session['logged_in'] %}
+        <p style = "color: black;">Hi, {{ session['username'] }}. &nbsp;&nbsp;</p> 
         <a href="/user/logout/" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Logout </a>
         {% else %}
         <a href="/user/login/" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Login </a>

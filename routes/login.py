@@ -40,12 +40,16 @@ def loginprocess():
             data = c.execute(
                 "SELECT * FROM users WHERE username = (%s) or email = (%s)", (userInput, userInput)
             )
-            # print(data, file=sys.stderr)
-            data = c.fetchone()[2]
 
-            if sha256_crypt.verify(request.form["password"], data):
+            # print(data, file=sys.stderr)
+            data = c.fetchone();
+            pword = data[2];
+            uname = data[1];
+            # uname = c.fetchone()[1];
+
+            if sha256_crypt.verify(request.form["password"], pword):
                 session["logged_in"] = True
-                session["username"] = request.form["username"]
+                session["username"] = uname;
 
                 flash("You are now logged in")
                 # return render_template("index.html", error=error)
