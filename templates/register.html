@@ -1,9 +1,9 @@
-{% block body %}
+
+ {% block body %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!--  meta data  -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
@@ -44,7 +44,6 @@ h4 {
     width: 100%;
 }
 </style>
-<!------ Include the above in your HEAD tag ---------->
 
 <body>
 <div>
@@ -52,23 +51,27 @@ h4 {
 	<h4>Registration</h4>
 		<br>
 		{% from "_formhelpers.html" import render_field %}
-		<div id="formdiv" method=post action="" align="center">
-			<div>
-				{{render_field(form.username)}}
-				{{render_field(form.email)}}
-				{{render_field(form.password)}}
-				{{render_field(form.confirm)}}
-				{{render_field(form.accept_tos)}}
+		<form method=post action="">
+			<div id="formdiv" method=post action="" align="center">
+				<div>
+					{{render_field(form.username)}}
+					{{render_field(form.email)}}
+					{{render_field(form.password)}}
+					{{render_field(form.confirm)}}
+					{{render_field(form.accept_tos)}}
+				</div>
+				<div class="controls">
+					<input class="btn btn-success" id="regBtn" type=submit value=Register></p>
+				</div>
 			</div>
-			<div class="controls">
-				<input class="btn btn-success" id="regBtn" type=submit value=Register></p>
-			</div>
-		</div>
-</div>
-{% if error %}
+		</form>
+		{% if error %}
 			<p style="color: red"><strong>Error: </strong>{{error}}</p>
 		{% endif %}
+</div>
+<body>
 {% endblock %}
 
 </div>
 </body>
+ 
