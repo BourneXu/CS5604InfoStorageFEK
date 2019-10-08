@@ -1,3 +1,4 @@
+{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,41 +7,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-
-
-
-
-
 </head>
+ <style>
+ 	
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  align:center
+}
 
-{% block body %}
-
-<body style="background-image:url('https://www.atimeofmyown.com/uploads/5/1/1/6/51161337/1312808.jpg?646')">
-	<div class = "container" style="margin: auto;
+#formdiv {
   width: 50%;
-  border: 3px solid green;
-  background-color: #DCDCDC;
-  padding: 10px;">
-		<h4>Registration Form</h4>
+  height: 50%;
+}
+
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+	align: center;
+}
+#regBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+</style>
+<!------ Include the above in your HEAD tag ---------->
+
+<body>
+<div>
+<div align="center" action='' method="POST">
+	<h4>Registration</h4>
 		<br>
 		{% from "_formhelpers.html" import render_field %}
-		<form method=post action="">
-			<dl>
+		<div id="formdiv" method=post action="" align="center">
+			<div>
 				{{render_field(form.username)}}
 				{{render_field(form.email)}}
 				{{render_field(form.password)}}
 				{{render_field(form.confirm)}}
 				{{render_field(form.accept_tos)}}
-			</dl>
-			<p><input type=submit value=Register></p>
-		</form>
-
-		{% if error %}
+			</div>
+			<div class="controls">
+				<input class="btn btn-success" id="regBtn" type=submit value=Register></p>
+			</div>
+		</div>
+</div>
+{% if error %}
 			<p style="color: red"><strong>Error: </strong>{{error}}</p>
 		{% endif %}
-
-	</div>
-</body>
-
 {% endblock %}
+
+</div>
+</body>

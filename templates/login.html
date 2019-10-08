@@ -1,22 +1,92 @@
 {% block body %}
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+h2 {
+	align:center;
+}	
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-<body style="background-image:url('https://www.atimeofmyown.com/uploads/5/1/1/6/51161337/1312808.jpg?646')">
-	<div class="container" style="margin: auto;
+#button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: auto;
+}
+
+img {
+  width: 15%;
+  border-radius: 50%;
+  height: auto;
+}
+
+form {
   width: 50%;
-  border: 3px solid green;
-  background-color: #DCDCDC;
-  padding: 10px;">
-		<br>
-		<h4>Please Login:</h4>
-		<br>
-		{% if error %}
-			<p style="color: red"><strong>Error: </strong>{{error}}</p>
-		{% endif %}
-		<form action="/user/loginprocess/" class="form-inline" method="post">
-			<input type="text" class="form-control" placeholder="Username" name="username" value="">
-			<input type="password" class="form-control" placeholder="Password" name="password" value="">
-			<input class="btn btn-primary" type="submit" value="Login">
-		</form>
-	</div>
+  height: 50%;
+}
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+
+<body>
+<h2 align="center">Login</h2>
+  <div class="imgcontainer">
+    <img src="http://wprdea.org/image/img_avatar.png" alt="Avatar" class="avatar">
+  </div>
+  <div align="center">
+	{% if error %}
+		<p style="color: red"><strong>Error: </strong>{{error}}</p>
+	{% endif %}
+<form action="/user/loginprocess/" method="post">
+    <label for="uname"><b>Username</b></label>
+    <input class="form-control" type="text" placeholder="Enter Username" name="username" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input class="form-control" type="password" placeholder="Enter Password" name="password" required>
+    <input class="btn btn-primary" id="button" type="submit" value="Login"></input>
+    <!-- <button type="submit">Login</button> -->
+</form>
+</div>
 </body>
 {% endblock %}
