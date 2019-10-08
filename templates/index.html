@@ -72,33 +72,22 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-
-        <!-- {% if session['logged_in'] %}
-        <p style = "color: black;">Hi, {{ session['username'] }}. &nbsp;&nbsp;</p> 
-        <a href="/user/logout/" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Logout </a>
-        {% else %}
-        <a href="/user/login/" style="color:#FFF; padding: 10px; margin: 5px; background-color: red;"> Login </a>
-        <a href="/user/register/" style="color:#FFF; padding: 10px; margin 5px; background-color: red;"> Register </a>
-        {% endif %} -->
-		
 		<!-- <nav align="right"> -->
 		  {% if session['logged_in'] %}
 		  <div class="btn-group">
 		  <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
 		  </div
-		  
 		  {% else %}
 			<div class="btn-group">
 			  <a class="btn btn-primary btn-sm float-right" href="/user/login/">Sign In</a>
 			  <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
-
+		  {% endif %}
 
         </form>
         </form>
       </div>
 
     </div>
-  {% endif %}
   </nav>
 
   <!-- Masthead -->
