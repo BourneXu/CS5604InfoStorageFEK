@@ -7,9 +7,6 @@ search_blueprint = Blueprint("search", __name__, template_folder="templates")
 
 headers = {"Content-Type": "application/json", "cache-control": "no-cache"}
 
-host = "localhost:9200"
-# host = "2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name:9200"
-
 
 @search_blueprint.route("/", methods=["GET", "POST"])
 def search_index():

@@ -17,10 +17,11 @@ const { ResultListWrapper } = ReactiveList;
 function App() {
     return (
         <ReactiveBase
-            app="shakes"
+            app="shakespeare"
             // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
-            // url="http://2001.0468.0c80.6102.0001.7015.3ae5.9506.ip6.name/"
-            url="http://localhost:9200/"
+            url="http://2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name:9200/"
+            // TODO: configure this
+            // url="http://localhost:9200/"
             theme={{
                 typography: {
                     fontFamily:

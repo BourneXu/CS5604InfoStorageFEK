@@ -1,6 +1,7 @@
-PyMySQL==0.9.3
+requests==2.22.0
 passlib==1.7.1
-WTForms==2.2.1
-requests==2.21.0
-Flask==1.0.2
 Flask_Cors==3.0.8
+WTForms==2.2.1
+Flask==1.1.1
+PyMySQL==0.9.3
+elasticsearch==7.0.5
