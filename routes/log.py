@@ -42,7 +42,9 @@ def emitlogs():
         if request.method == "POST":
             logs = request.get_json()
             # print(dataset, username, timestamp, ip, url)
-            es = Elasticsearch([{"host": "localhost", "port": 9200}])
+            # TODO: Configure ES
+            host = '2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name'
+            es = Elasticsearch([{"host": host, "port": 9200}])
             es.indices.create(index=dataset + "_search_log", ignore=400)
             res = search_log_to_els_log(
                 logs=logs,
