@@ -1,6 +1,5 @@
 import pymysql
-
-# Open database connection
+from dynaconf import settings
 
 
 def connection():
@@ -11,6 +10,5 @@ def connection():
     user = "root"
     database = "CS5604"
     conn = pymysql.connect(host, user, password, database)
-
     c = conn.cursor()
     return c, conn
