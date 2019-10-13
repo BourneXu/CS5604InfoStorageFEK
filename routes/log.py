@@ -53,7 +53,6 @@ def emitlogs():
                 dataset=dataset,
                 url=url,
             )
-            print(res)
             res = es.index(index=dataset + "_search_log", body=res)
 
         return Response(
@@ -74,9 +73,9 @@ def extract(obj, arr, keys):
     """Recursively search for values of key in JSON tree."""
     if isinstance(obj, dict):
         for k, v in obj.items():
-            if k == 'body':
-                tmp_v = list(map(lambda x: x[1:-1], filter(lambda x: x!= '', v.split('\n'))))
-                v = json.loads('{' + ','.join(tmp_v) + '}')
+            if k == "body":
+                tmp_v = list(map(lambda x: x[1:-1], filter(lambda x: x != "", v.split("\n"))))
+                v = json.loads("{" + ",".join(tmp_v) + "}")
             if k in keys:
                 arr.append([k, v])
             elif isinstance(v, (dict, list)):
