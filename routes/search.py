@@ -11,9 +11,14 @@ host = "localhost:9200"
 # host = "2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name:9200"
 
 
-@search_blueprint.route("/", methods=["GET", "POST"])
-def search_index():
-    return render_template("search.html")
+@search_blueprint.route("/etd", methods=["GET", "POST"])
+def search_etd():
+    return render_template("search_etd.html")
+
+
+@search_blueprint.route("/tobacco", methods=["GET", "POST"])
+def search_tobacco():
+    return render_template("search_tobacco.html")
 
 
 # @search_blueprint.route("/", methods=["GET", "POST"], endpoint="index")

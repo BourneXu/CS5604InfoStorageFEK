@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Search Tobacco</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/startbootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/css/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../static/css/startbootstrap/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet"
+        type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+        type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/startbootstrap/css/landing-page.min.css" rel="stylesheet">
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/static/build/manifest.json">
+    <link rel="shortcut icon" href="/static/build/favicon.ico">
+    <title>FEK-Test</title>
+    <link href="/static/build/static/css/main.5a338505.chunk.css" rel="stylesheet">
+
+    <style>
+        .button {
+            background-color: #1c87c9;
+            border: none;
+            color: white;
+            padding: 20px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">FEK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu">Menu</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Visualization</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Datasets
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">ETD</a>
+                            <a class="dropdown-item" href="#">Tobacco</a>
+                            <!-- <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a> -->
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Q&A</a>
+                    </li>
+                </ul>
+                <!-- <nav align="right"> -->
+                {% if session['logged_in'] %}
+                <div class="btn-group">
+                    <p style="color:black;"> Hi {{ session['username'] }}. &nbsp &nbsp </p>
+                    <a class="btn btn-primary btn-sm float-right" href="#">Profile</a>
+                    <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
+                </div {% else %} <div class="btn-group">
+                <a class="btn btn-primary btn-sm float-right" href="/user/login/">Sign In</a>
+                <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
+                {% endif %}
+
+                </form>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Masthead -->
+    <header class="masthead text-white">
+        <div class="overlay"></div>
+        <div id="root"></div>
+        <script>!function (c) { function e(e) { for (var r, t, n = e[0], o = e[1], u = e[2], i = 0, a = []; i < n.length; i++)t = n[i], Object.prototype.hasOwnProperty.call(f, t) && f[t] && a.push(f[t][0]), f[t] = 0; for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (c[r] = o[r]); for (s && s(e); a.length;)a.shift()(); return p.push.apply(p, u || []), l() } function l() { for (var e, r = 0; r < p.length; r++) { for (var t = p[r], n = !0, o = 1; o < t.length; o++) { var u = t[o]; 0 !== f[u] && (n = !1) } n && (p.splice(r--, 1), e = i(i.s = t[0])) } return e } var t = {}, f = { 1: 0 }, p = []; function i(e) { if (t[e]) return t[e].exports; var r = t[e] = { i: e, l: !1, exports: {} }; return c[e].call(r.exports, r, r.exports, i), r.l = !0, r.exports } i.m = c, i.c = t, i.d = function (e, r, t) { i.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, i.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, i.t = function (r, e) { if (1 & e && (r = i(r)), 8 & e) return r; if (4 & e && "object" == typeof r && r && r.__esModule) return r; var t = Object.create(null); if (i.r(t), Object.defineProperty(t, "default", { enumerable: !0, value: r }), 2 & e && "string" != typeof r) for (var n in r) i.d(t, n, function (e) { return r[e] }.bind(null, n)); return t }, i.n = function (e) { var r = e && e.__esModule ? function () { return e.default } : function () { return e }; return i.d(r, "a", r), r }, i.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, i.p = "/static/build/"; var r = window["webpackJsonpreactivesearch-interactive"] = window["webpackJsonpreactivesearch-interactive"] || [], n = r.push.bind(r); r.push = e, r = r.slice(); for (var o = 0; o < r.length; o++)e(r[o]); var s = n; l() }([])</script>
+        <script src="/static/build/static/js/2.0f55d3a1.chunk.js"></script>
+        <script src="/static/build/static/js/main.e230e0fd.chunk.js"></script>
+    </header>
+
+    <!-- Footer -->
+    <footer class="footer bg-light">
+        <div class="row">
+            <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+                <ul class="list-inline mb-0"></ul>
+                <li class="list-inline-item">
+                    <a href="https://github.com/BourneXu/CS5604InfoStorageFEK">
+                        <i class="fab fa-github fa-2x fa-fw"></i>
+                    </a>
+                </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            ​ <div class="col-md-12 text-center">
+                ​
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> Made with <i
+                        class="icon-heart text-danger" aria-hidden="true"></i> by <a
+                        href="https://github.com/BourneXu/CS5604InfoStorageFEK" target="_blank">FEK
+                        Team</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

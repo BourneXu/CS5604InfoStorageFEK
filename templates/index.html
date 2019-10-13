@@ -8,20 +8,22 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Landing Page - Start Bootstrap Theme</title>
+  <title>FEK-Searching</title>
 
   <!-- Bootstrap core CSS -->
   <link href="static/css/startbootstrap/vendor/bootstrap/css//bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
   <link href="static/css/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="static/css/startbootstrap/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="static/css/startbootstrap/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet"
+    type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+    type="text/css">
 
   <!-- Custom styles for this template -->
   <link href="static/css/startbootstrap/css/landing-page.min.css" rel="stylesheet">
   <style>
-      .button {
+    .button {
       background-color: #1c87c9;
       border: none;
       color: white;
@@ -32,7 +34,7 @@
       font-size: 20px;
       margin: 4px 2px;
       cursor: pointer;
-
+    }
   </style>
 </head>
 
@@ -54,35 +56,34 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Visualization</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              Dropdown
+              Datasets
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">ETD</a>
+              <a class="dropdown-item" href="#">Tobacco</a>
+              <!-- <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a> -->
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Q&A</a>
           </li>
         </ul>
-		<!-- <nav align="right"> -->
-		  {% if session['logged_in'] %}
-		  <div class="btn-group">
-      <p style="color:black;"> Hi {{ session['username'] }}. &nbsp &nbsp </p>
-		  <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
-		  </div
-		  {% else %}
-			<div class="btn-group">
-			  <a class="btn btn-primary btn-sm float-right" href="/user/login/">Sign In</a>
-			  <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
-		  {% endif %}
+        <!-- <nav align="right"> -->
+        {% if session['logged_in'] %}
+        <div class="btn-group">
+          <p style="color:black;"> Hi {{ session['username'] }}. &nbsp &nbsp </p>
+          <a class="btn btn-primary btn-sm float-right" href="#">Profile</a>
+          <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
+        </div {% else %} <div class="btn-group">
+        <a class="btn btn-primary btn-sm float-right" href="/user/login/">Sign In</a>
+        <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
+        {% endif %}
 
         </form>
         </form>
@@ -97,13 +98,13 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5">Build our search engine for ETD!</h1>
+          <h1 class="mb-5">Search engine for ETD and Tobacco!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <form>
             <div class="btn-group">
-				 <a href="/search" class="button">Searching for ETD</a>
-                 <a href="#" class="button">Searching for XXX</a>
+              <a href="/search/etd" class="button">Search for ETD</a>
+              <a href="/search/tobacco" class="button">Search for Tobacco</a>
             </div>
           </form>
         </div>
@@ -114,8 +115,8 @@
   <!-- Footer -->
   <footer class="footer bg-light">
     <div class="container">
-		<div class="row">
-		<div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
           <ul class="list-inline mb-0">
             <li class="list-inline-item">
               <a href="https://github.com/BourneXu/CS5604InfoStorageFEK">
@@ -124,21 +125,22 @@
             </li>
           </ul>
         </div>
-		</div>
+      </div>
       <div class="row">
 
-			<div class="container">
-		​	  <div class="col-md-12 text-center">
-		​
-				  <p>
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					Copyright &copy;
-					<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart text-danger"
-					  aria-hidden="true"></i> by <a href="https://github.com/BourneXu/CS5604InfoStorageFEK" target="_blank">FEK
-					  Team</a>
-				  </p>
-			  </div>
-			</div>
+        <div class="container">
+          ​ <div class="col-md-12 text-center">
+            ​
+            <p>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart text-danger"
+                aria-hidden="true"></i> by <a href="https://github.com/BourneXu/CS5604InfoStorageFEK"
+                target="_blank">FEK
+                Team</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
