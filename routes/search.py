@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
+from routes.auth import login_required
 import requests, json
 
 # creating a Blueprint class
@@ -9,16 +10,19 @@ headers = {"Content-Type": "application/json", "cache-control": "no-cache"}
 
 
 @search_blueprint.route("/", methods=["GET", "POST"])
+@login_required
 def search():
     return render_template("search.html")
 
 
 @search_blueprint.route("/etd", methods=["GET", "POST"])
+@login_required
 def search_etd():
     return render_template("search_etd.html")
 
 
 @search_blueprint.route("/tobacco", methods=["GET", "POST"])
+@login_required
 def search_tobacco():
     return render_template("search_tobacco.html")
 

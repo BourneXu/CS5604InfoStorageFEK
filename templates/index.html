@@ -106,18 +106,16 @@
           <p style="color:black;"> Hi {{ session['username'] }}. &nbsp &nbsp </p>
           <a class="btn btn-primary btn-sm float-right" href="#">Profile</a>
           <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
-        </div {% else %} <div class="btn-group">
-        <a data-fancybox class="btn btn-primary btn-sm float-right" data-src="#login" href="javascript:;">
-          Sign In
-        </a>
-        <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
+        </div>
+        {% else %}
+        <div class="btn-group">
+          <a data-fancybox class="btn btn-primary btn-sm float-right" data-src="#login" href="javascript:;">
+            Sign In
+          </a>
+          <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
+        </div>
         {% endif %}
-
-        </form>
-        </form>
       </div>
-
-    </div>
   </nav>
 
   <!-- Masthead -->
@@ -130,12 +128,22 @@
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <div class="btn-group">
+            {% if session['logged_in'] %}
             <a data-fancybox data-type="iframe" href="/search/etd" class="btn btn-primary fancybox">
               Search for ETD
             </a>
             <a data-fancybox data-type="iframe" href="/search/tobacco" class="btn btn-primary fancybox">
               Search for Tobacco
             </a>
+            {% else %}
+            <a data-fancybox class="btn btn-primary float-right" data-src="#login" href="javascript:;">
+              Search for ETD
+            </a>
+            <a data-fancybox class="btn btn-primary float-right" data-src="#login" href="/search">
+              Search for Tobacco
+            </a>
+            {% endif %}
+
           </div>
         </div>
       </div>
@@ -201,6 +209,17 @@
     </form>
   </div>
 
+  <!-- Add flash messages-->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <script>
+    var messages = {{ messages | safe }};
+    for (var i = 0; i < messages.length; i++) {
+      alert(messages[i]);
+    }
+  </script>
+  {% endif %}
+  {% endwith %}
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
