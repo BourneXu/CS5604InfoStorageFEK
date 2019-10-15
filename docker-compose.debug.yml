@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  cs5604infostoragefek:
+    image: cs5604infostoragefek
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000

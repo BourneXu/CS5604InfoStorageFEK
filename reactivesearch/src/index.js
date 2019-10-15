@@ -11,23 +11,29 @@ import {
 } from "@appbaseio/reactivesearch";
 import axios from "axios";
 import "./styles.css";
+import config from 'react-global-configuration';
 
 const { ResultListWrapper } = ReactiveList;
 
-const BASE_URI = 'http://0.0.0.0:3000';
-// const BASE_URI = 'http://2001.0468.0c80.6102.0001.7015.bf2d.eb25.ip6.name:3000'
+// Global Configurations
+config.set({
+    elasticsearch: "http://localhost:9200/",
+    base_uri: "http://0.0.0.0:3000"
+});
+
 const client = axios.create({
-    baseURL: BASE_URI,
+    baseURL: config.get("base_uri"),
     json: true
 });
+
+
 
 function App() {
     return (
         <ReactiveBase
             app="shakes"
             // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
-            // url="http://2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name:9200/"
-            url="http://localhost:9200/"
+            url={config.get('elasticsearch')}
             theme={{
                 typography: {
                     fontFamily:
@@ -60,7 +66,7 @@ function App() {
                         highlight={true}
                         highlightField={["text_entry"]}
                         placeholder="Search ETD"
-                        title="FEK Searching System"
+                        title="Search for ETD"
                         react={{
                             and: ['text_entry'],
                         }}

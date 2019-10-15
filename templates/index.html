@@ -22,6 +22,12 @@
 
   <!-- Custom styles for this template -->
   <link href="static/css/startbootstrap/css/landing-page.min.css" rel="stylesheet">
+
+  <!-- fancy boxes -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link href="static/js/jquery.fancybox.min.css" rel="stylesheet">
+  <script src="static/js/jquery.fancybox.min.js"></script>
+
   <style>
     .button {
       background-color: #1c87c9;
@@ -34,6 +40,26 @@
       font-size: 20px;
       margin: 4px 2px;
       cursor: pointer;
+    }
+
+    .imgcontainer {
+      text-align: center;
+      margin: auto;
+    }
+
+    .btn {
+      font-weight: bold;
+      font-size: 2.0rem;
+      padding: 0.375rem 1rem;
+      margin: 0rem 1rem;
+
+    }
+
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border-radius: 0.2rem;
     }
   </style>
 </head>
@@ -81,7 +107,9 @@
           <a class="btn btn-primary btn-sm float-right" href="#">Profile</a>
           <a class="btn btn-primary btn-sm float-right" href="/user/logout/">Logout</a>
         </div {% else %} <div class="btn-group">
-        <a class="btn btn-primary btn-sm float-right" href="/user/login/">Sign In</a>
+        <a data-fancybox class="btn btn-primary btn-sm float-right" data-src="#login" href="javascript:;">
+          Sign In
+        </a>
         <a class="btn btn-primary btn-sm float-right" href="/user/register/">Register</a>
         {% endif %}
 
@@ -101,12 +129,14 @@
           <h1 class="mb-5">Search engine for ETD and Tobacco!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form>
-            <div class="btn-group">
-              <a href="/search/etd" class="button">Search for ETD</a>
-              <a href="/search/tobacco" class="button">Search for Tobacco</a>
-            </div>
-          </form>
+          <div class="btn-group">
+            <a data-fancybox data-type="iframe" href="/search/etd" class="btn btn-primary fancybox">
+              Search for ETD
+            </a>
+            <a data-fancybox data-type="iframe" href="/search/tobacco" class="btn btn-primary fancybox">
+              Search for Tobacco
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -132,7 +162,7 @@
           ​ <div class="col-md-12 text-center">
             ​
             <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              <!-- Link back to Colorlib can' t be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;
               <script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart text-danger"
                 aria-hidden="true"></i> by <a href="https://github.com/BourneXu/CS5604InfoStorageFEK"
@@ -144,6 +174,33 @@
       </div>
     </div>
   </footer>
+
+  <!-- login -->
+  <div style="display: none;" id="login">
+    <form action="/user/loginprocess/" method="post" class="fancybox-content">
+      <h2 align="center">Login</h2>
+      <div class="imgcontainer">
+        <img src="http://wprdea.org/image/img_avatar.png" alt="Avatar" class="avatar" width="100" height="100px">
+      </div>
+      <div align="center">
+        {% if error %}
+        <p style="color: red"><strong>Error: </strong>{{error}}</p>
+        {% endif %}
+        <label for="uname"><b>Username</b></label>
+        <input class="form-control" type="text" placeholder="Enter Username" name="username" required>
+        <p></p>
+        <label for="psw"><b>Password</b></label>
+        <input class="form-control" type="password" placeholder="Enter Password" name="password" required>
+        <!-- <button type="submit">Login</button> -->
+        <p></p>
+        <input class="btn btn-primary btn-sm" id="button" type="submit" value="Login"></input>
+        <p></p>
+        <p>Don't have an account? <a href="/user/register">Sign Up</a></p>
+
+      </div>
+    </form>
+  </div>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
