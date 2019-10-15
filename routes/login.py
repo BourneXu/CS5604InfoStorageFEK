@@ -42,14 +42,14 @@ def loginprocess():
             )
 
             # print(data, file=sys.stderr)
-            data = c.fetchone();
-            pword = data[2];
-            uname = data[1];
+            data = c.fetchone()
+            pword = data[2]
+            uname = data[1]
             # uname = c.fetchone()[1];
 
             if sha256_crypt.verify(request.form["password"], pword):
                 session["logged_in"] = True
-                session["username"] = uname;
+                session["username"] = uname
 
                 flash("You are now logged in")
                 # return render_template("index.html", error=error)
@@ -76,6 +76,7 @@ def loginprocess():
 @user_blueprint.route("/logout/")
 def logout():
     session["logged_in"] = False
+    flash("You are now logged out")
     return redirect(url_for("index"))
 
 
