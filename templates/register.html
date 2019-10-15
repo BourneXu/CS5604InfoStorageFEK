@@ -1,40 +1,40 @@
-
- {% block body %}
+{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
 </head>
- <style>
- 	
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  align:center
-}
+<style>
+  input[type=text],
+  input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    align: center
+  }
 
-#formdiv {
-  width: 50%;
-  height: 50%;
-}
+  #formdiv {
+    width: 50%;
+    height: 50%;
+  }
 
-h4 {
+  h4 {
     display: block;
     margin-block-start: 1.33em;
     margin-block-end: 1.33em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
-	align: center;
-}
-#regBtn {
+    align: center;
+  }
+
+  #regBtn {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -42,36 +42,36 @@ h4 {
     border: none;
     cursor: pointer;
     width: 100%;
-}
+  }
 </style>
 
 <body>
-<div>
-<div align="center" action='' method="POST">
-	<h4>Registration</h4>
-		<br>
-		{% from "_formhelpers.html" import render_field %}
-		<form method=post action="">
-			<div id="formdiv" method=post action="" align="center">
-				<div>
-					{{render_field(form.username)}}
-					{{render_field(form.email)}}
-					{{render_field(form.password)}}
-					{{render_field(form.confirm)}}
-					{{render_field(form.accept_tos)}}
-				</div>
-				<div class="controls">
-					<input class="btn btn-success" id="regBtn" type=submit value=Register></p>
-				</div>
-			</div>
-		</form>
-		{% if error %}
-			<p style="color: red"><strong>Error: </strong>{{error}}</p>
-		{% endif %}
-</div>
-<body>
-{% endblock %}
+  <div>
+    <div align="center" action='' method="POST">
+      <h4>Registration</h4>
+      <br>
+      {% from "_formhelpers.html" import render_field %}
+      <form method=post action="">
+        <div id="formdiv" method=post action="" align="center">
+          <div>
+            {{render_field(form.username)}}
+            {{render_field(form.email)}}
+            {{render_field(form.password)}}
+            {{render_field(form.confirm)}}
+            {{render_field(form.accept_tos)}}
+          </div>
+          <div class="controls">
+            <input class="btn btn-success" id="regBtn" type=submit value=Register></p>
+          </div>
+        </div>
+      </form>
+      {% if error %}
+      <p style="color: red"><strong>Error: </strong>{{error}}</p>
+      {% endif %}
+    </div>
 
-</div>
+    <body>
+      {% endblock %}
+
+  </div>
 </body>
- 

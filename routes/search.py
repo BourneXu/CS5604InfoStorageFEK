@@ -8,6 +8,11 @@ search_blueprint = Blueprint("search", __name__, template_folder="templates")
 headers = {"Content-Type": "application/json", "cache-control": "no-cache"}
 
 
+@search_blueprint.route("/", methods=["GET", "POST"])
+def search():
+    return render_template("search.html")
+
+
 @search_blueprint.route("/etd", methods=["GET", "POST"])
 def search_etd():
     return render_template("search_etd.html")
