@@ -131,13 +131,13 @@ class Main extends Component {
                                 className="filter"
                             />
 
-                            <DateRange
+                            {/* <DateRange
                                 componentId="filter_Date_Added_UCSF"
                                 dataField="Date_Added_UCSF"
                                 title="Date_Added_UCSF"
                                 customQuery={this.dateQuery}
                                 initialMonth={new Date('2019-10-01')}
-                            />
+                            /> */}
 
                             <DateRange
                                 componentId="filter_Document_Date"
