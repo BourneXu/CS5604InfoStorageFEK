@@ -1,6 +1,9 @@
+Flask_Session==0.3.1
 PyMySQL==0.9.3
+dynaconf==2.2.0
 passlib==1.7.1
-WTForms==2.2.1
-requests==2.21.0
-Flask==1.0.2
 Flask_Cors==3.0.8
+Flask==1.1.1
+requests==2.22.0
+WTForms==2.2.1
+elasticsearch==7.0.5

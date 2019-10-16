@@ -1,11 +1,10 @@
 import pymysql
-
-# Open database connection
+from dynaconf import settings
 
 
 def connection():
-
-    conn = pymysql.connect("localhost","root","CSD@mysql-1872","CS5604" )
-
+    conn = pymysql.connect(
+        settings.MYSQL.host, settings.MYSQL.user, settings.MYSQL.password, settings.MYSQL.database
+    )
     c = conn.cursor()
     return c, conn
