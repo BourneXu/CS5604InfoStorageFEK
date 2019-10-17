@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, session
 from routes.auth import login_required
 import requests, json
 
@@ -18,12 +18,14 @@ def search():
 @search_blueprint.route("/etd", methods=["GET", "POST"])
 @login_required
 def search_etd():
+    session["dataset"] = "etd"
     return render_template("search_etd.html")
 
 
 @search_blueprint.route("/tobacco", methods=["GET", "POST"])
 @login_required
 def search_tobacco():
+    session["dataset"] = "tobacco"
     return render_template("search_tobacco.html")
 
 
