@@ -16,18 +16,9 @@ def emitlogs():
     timestamp = datetime.now()
     ip = request.environ["REMOTE_ADDR"]
     url = request.headers.get("url")
-    username, email, dataset = "", "", "etd"
-    # print(dataset, username, timestamp, ip, url)
-    # if 'dataset' in session:
-    #     dataset = session['dataset']
-    # else:
-    #     print('Dataset requested!')
-    #     return Response(
-    #         {'status code': 1,
-    #          'message': 'Dataset requested!'},
-    #         status=200,
-    #         mimetype="application/json",
-    #     )
+    username, email, dataset = "", "", session["dataset"] if "dataset" in session else "etd"
+    print(dataset, username, timestamp, ip, url)
+
     if "username" in session:
         username = session["username"]
         email = session["email"] if "email" in session else "no email given"
@@ -41,11 +32,8 @@ def emitlogs():
     try:
         if request.method == "POST":
             logs = request.get_json()
+            print(logs)
             # print(dataset, username, timestamp, ip, url)
-            # TODO: Configure ES
-            host = '2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name'
-            es = Elasticsearch([{"host": host, "port": 9200}])
-            es.indices.create(index=dataset + "_search_log", ignore=400)
             res = search_log_to_els_log(
                 logs=logs,
                 username=username,
@@ -55,11 +43,17 @@ def emitlogs():
                 dataset=dataset,
                 url=url,
             )
-            res = es.index(index=dataset + "_search_log", body=res)
+            print(res)
+            if "data" in res:
+                es = Elasticsearch(
+                    [{"host": "2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name", "port": 9200}]
+                )
+                es.indices.create(index=dataset + "_search_log", ignore=400)
+                res = es.index(index=dataset + "_search_log", body=res)
 
         return Response(
-            {"status code": 0, "message": "Sucessfully record logs!"},
-            status=200,
+            {"status code": 0, "message": res["message"]},
+            status=res["status"],
             mimetype="application/json",
         )
     except Exception as e:
@@ -71,13 +65,19 @@ def emitlogs():
         )
 
 
+def check_body(logs):
+    tmp = list(map(lambda x: x[1:-1], filter(lambda x: x != "", logs["body"].split("\n"))))
+    logs["body"] = json.loads("{" + ",".join(tmp) + "}")
+    # print(logs['body']['query'])
+    if logs["body"]["preference"] != "List" or "match_all" in logs["body"]["query"]:
+        return False
+    return True
+
+
 def extract(obj, arr, keys):
     """Recursively search for values of key in JSON tree."""
     if isinstance(obj, dict):
         for k, v in obj.items():
-            if k == "body":
-                tmp_v = list(map(lambda x: x[1:-1], filter(lambda x: x != "", v.split("\n"))))
-                v = json.loads("{" + ",".join(tmp_v) + "}")
             if k in keys:
                 arr.append([k, v])
             elif isinstance(v, (dict, list)):
@@ -89,23 +89,26 @@ def extract(obj, arr, keys):
 
 
 def search_log_to_els_log(logs, username, email, timestamp, ip, dataset, url):
+    # discard record if body's preference is not list or query is match_all
+    if not check_body(logs):
+        return {"status": 200, "message": "Discard search result"}
+
+    url = logs["url"]
     ## match elements extraction
     matches = []
-    matches = extract(logs, matches, ["match", "multi_match"])
+    matches = extract(logs, matches, ["terms", "match", "multi_match"])
 
     search_text = ""  # "query" within "multi_match" with attribute "fuzziness"
     filters = {}  # other queries, where key is the field's name and value is the query
     for k, v in matches:
         ## Those whose "type" is "phrase_prefix" should be dismissed as it is not a completed query
-        if k == "multi_match" and "phrase_prefix" in v:
+        if (k == "multi_match" and "phrase_prefix" in v) or (k == "terms" and "field" in v):
             continue
-        if "fuzziness" in v:
+        if "query" in v:
             search_text = v["query"]
-        for f in v["fields"]:
-            if f not in filters:
-                filters[f] = v["query"]
-            else:
-                filters[f] += "%%or%%" + v["query"]
+        if k == "terms":
+            for kf, vf in v.items():
+                filters[kf] = vf
 
     ## format the output json
     return {

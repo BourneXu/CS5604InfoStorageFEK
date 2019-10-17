@@ -3,9 +3,11 @@ from routes.search import search_blueprint
 from routes.login import user_blueprint
 from routes.log import log_blueprint
 import os
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 app.templates_auto_reload = True
 app.secret_key = os.urandom(12)
 # SESSION_TYPE = "filesystem"

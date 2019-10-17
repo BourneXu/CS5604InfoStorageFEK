@@ -57,7 +57,7 @@ class Main extends Component {
     render() {
         return (
             <ReactiveBase
-                app="tobacco"
+                app="tobacco3"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{
@@ -67,7 +67,17 @@ class Main extends Component {
                     }
                 }}
                 transformRequest={request => {
-                    // console.log(request);
+                    // Auto-suggestions start from 3rd characters
+                    var request_body = request.body.split('\n');
+                    var body_preference = JSON.parse(request_body[0])
+                    var body_query = JSON.parse(request_body[1])
+                    if (body_preference.preference === "search") {
+                        if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
+                            return {};
+                        }
+                    }
+
+                    // Post logs
                     client({
                         method: 'post',
                         url: '/emitlogs',
@@ -84,23 +94,24 @@ class Main extends Component {
                         <DataSearch
                             componentId="search"
                             dataField={[
-                                "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Description", "Title"
+                                "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
                             ]}
                             // fieldWeights={[2, 1, 2, 1, 1, 1, 1, 1]}
                             fuzziness={0}
                             // debounce={100}
                             highlight={true}
-                            highlightField={["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Description", "Title"]}
+                            highlightField={["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title"]}
                             placeholder="Search Tobacco"
                             title="Search for Tobacco"
                             react={{
-                                and: ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Description", "Title"],
+                                and: ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title"],
+                                or: ["Topic"]
                             }}
-                            renderNoSuggestion={() => (
-                                <div>
-                                    No suggestions found
-                            </div>
-                            )}
+                        // renderNoSuggestion={() => (
+                        //     <div>
+                        //         No suggestions found
+                        // </div>
+                        // )}
 
                         />
                     </div>
@@ -131,14 +142,6 @@ class Main extends Component {
                                 className="filter"
                             />
 
-                            {/* <DateRange
-                                componentId="filter_Date_Added_UCSF"
-                                dataField="Date_Added_UCSF"
-                                title="Date_Added_UCSF"
-                                customQuery={this.dateQuery}
-                                initialMonth={new Date('2019-10-01')}
-                            /> */}
-
                             <DateRange
                                 componentId="filter_Document_Date"
                                 dataField="Document_Date"
@@ -162,7 +165,7 @@ class Main extends Component {
                                 size={5}
                                 loader="Loading Results.."
                                 react={{
-                                    and: ["filter_Document_Type", "filter_availablility", "filter_availablilitystatus", "search"]
+                                    and: ["filter_Document_Type", "filter_availablility", "filter_availablilitystatus", "filter_Brands", "search"]
                                 }}
                                 render={({ data }) => (
                                     <ResultListWrapper>
@@ -183,9 +186,15 @@ class Main extends Component {
                                                             <div>
                                                                 <div>
                                                                     by{' '}
-                                                                    <span className="authors-list">
+                                                                    {/* <span className="authors-list">
                                                                         {res.Witness_Name}
-                                                                    </span>
+                                                                    </span> */}
+                                                                    <div
+                                                                        className="authors-list"
+                                                                        dangerouslySetInnerHTML={{
+                                                                            __html: res.Witness_Name,
+                                                                        }}
+                                                                    />
                                                                 </div>
                                                                 {/* <div className="ratings-list flex align-center">
                                                                 <span className="stars">
@@ -207,12 +216,18 @@ class Main extends Component {
                                                             </div> */}
                                                             </div>
                                                             <span className="pub-year">
-                                                                Pub {res.Document_Date}
+                                                                Pub: {res.Document_Date}
                                                             </span>
                                                             <div
                                                                 className="book-text"
                                                                 dangerouslySetInnerHTML={{
                                                                     __html: res.Case,
+                                                                }}
+                                                            />
+                                                            <div
+                                                                className="book-text"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: res.Organization_Mentioned,
                                                                 }}
                                                             />
                                                         </div>
