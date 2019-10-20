@@ -29,21 +29,15 @@ const client = axios.create({
 });
 
 class Main extends Component {
-    dateQuery(value) {
+    dateQuery(value, props) {
         let query = null;
         if (value) {
             query = [
                 {
                     range: {
-                        date_from: {
-                            gte: moment(value.start).format('YYYYMMDD'),
-                        },
-                    },
-                },
-                {
-                    range: {
-                        date_to: {
-                            lte: moment(value.end).format('YYYYMMDD'),
+                        "Document_Date": {
+                            gte: moment(value.start).format('YYYY-MM-DD'),
+                            lte: moment(value.end).format('YYYY-MM-DD'),
                         },
                     },
                 },
@@ -71,7 +65,7 @@ class Main extends Component {
                     var body_query = JSON.parse(request_body[1])
                     if (body_preference.preference === "search") {
                         if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
-                            return {};
+                            return null;
                         }
                     }
 
@@ -144,7 +138,10 @@ class Main extends Component {
                                 componentId="filter_Document_Date"
                                 dataField="Document_Date"
                                 title="Document_Date"
-                                customQuery={this.dateQuery}
+                                // customQuery={this.dateQuery}
+                                focused={false}
+                                autoFocusEnd={true}
+                                numberOfMonths={1}
                                 initialMonth={new Date('2019-10-01')}
                             />
 
@@ -163,7 +160,7 @@ class Main extends Component {
                                 size={5}
                                 loader="Loading Results.."
                                 react={{
-                                    and: ["filter_Document_Type", "filter_availablility", "filter_availablilitystatus", "filter_Brands", "search"]
+                                    and: ["filter_Document_Type", "filter_availablility", "filter_availablilitystatus", "filter_Brands", "search", "filter_Document_Date"]
                                 }}
                                 render={({ data }) => (
                                     <ResultListWrapper>
