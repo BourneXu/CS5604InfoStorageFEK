@@ -28,7 +28,23 @@ const client = axios.create({
     json: true
 });
 
+var advanced_query = [ "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
+// this.customQuery=function(gvalue) {
+//   return {
+//     "query": {
+//       "simple_query_string" : {
+//        "query": gvalue,
+//        "fields": ["Title"]
+//    }
+//
+//     }
+//   }
+// }
+
 class Main extends Component {
+
+
+
     dateQuery(value) {
         let query = null;
         if (value) {
@@ -67,8 +83,26 @@ class Main extends Component {
                 transformRequest={request => {
                     // Auto-suggestions start from 3rd characters
                     var request_body = request.body.split('\n');
+
+
+                    var searchText = document.getElementById("search-downshift-input").value;
+                    // console.log("The search bar says: "+ searchText);
+                    var sT = searchText.split(":");
+                    console.log("The length of the split is " + sT.length);
+                    if(sT.length > 1) //the first part of the split should be the relevant field
+                    {
+                       advanced_query = ["Title"];
+                    }
+                    else {   //if it isn't an advanced query then reset it to match all the fields
+                      advanced_query = [ "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
+
+                    }
+
                     var body_preference = JSON.parse(request_body[0])
                     var body_query = JSON.parse(request_body[1])
+
+                    console.log("The body_query is: "+ request_body[1]);
+
                     if (body_preference.preference === "search") {
                         if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
                             return {};
@@ -91,9 +125,21 @@ class Main extends Component {
                     <div className="searchbar">
                         <DataSearch
                             componentId="search"
-                            dataField={[
-                                "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
-                            ]}
+                            // dataField={[
+                            //     "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
+                            // ]}
+                            customQuery={
+                            function(value, props) {
+                              return {
+                      query: {
+                        multi_match: {
+                          query:    value,
+                          fields: advanced_query
+                        }
+                      }
+                              }
+                            }
+                          }
                             // fieldWeights={[2, 1, 2, 1, 1, 1, 1, 1]}
                             fuzziness={0}
                             // debounce={100}
