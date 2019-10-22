@@ -6,10 +6,8 @@ import {
     ResultList,
     ReactiveList,
     MultiList,
-    MultiDropdownList,
     DataSearch,
-    SelectedFilters,
-    DateRange
+    SelectedFilters
 } from "@appbaseio/reactivesearch";
 import axios from "axios";
 import "./styles.css";
@@ -30,6 +28,22 @@ const client = axios.create({
     json: true
 });
 
+var advanced_query = ["degree-level", "contributor-department", "contributor-author",
+    "contributor-committeechair", "contributor-committeecochair",
+    "contributor-committeemember", "degree-name", "description-abstract",
+    "Author Email", "subject-none", "title-none", "type-none"];
+// this.customQuery=function(gvalue) {
+//   return {
+//     "query": {
+//       "simple_query_string" : {
+//        "query": gvalue,
+//        "fields": ["Title"]
+//    }
+//
+//     }
+//   }
+// }
+
 class Main extends Component {
     dateQuery(value) {
         let query = null;
@@ -37,15 +51,9 @@ class Main extends Component {
             query = [
                 {
                     range: {
-                        date_from: {
-                            gte: moment(value.start).format('YYYYMMDD'),
-                        },
-                    },
-                },
-                {
-                    range: {
-                        date_to: {
-                            lte: moment(value.end).format('YYYYMMDD'),
+                        "Document_Date": {
+                            gte: moment(value.start).format('YYYY-MM-DD'),
+                            lte: moment(value.end).format('YYYY-MM-DD'),
                         },
                     },
                 },
@@ -57,7 +65,7 @@ class Main extends Component {
     render() {
         return (
             <ReactiveBase
-                app="tobacco3"
+                app="etd_metadata"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{
@@ -69,11 +77,32 @@ class Main extends Component {
                 transformRequest={request => {
                     // Auto-suggestions start from 3rd characters
                     var request_body = request.body.split('\n');
+
+
+                    var searchText = document.getElementById("search-downshift-input").value;
+                    // console.log("The search bar says: "+ searchText);
+                    var sT = searchText.split(":");
+                    console.log("The length of the split is " + sT.length);
+                    if (sT.length > 1) //the first part of the split should be the relevant field
+                    {
+                        advanced_query = ["title-none"];
+                    }
+                    else {   //if it isn't an advanced query then reset it to match all the fields
+                        advanced_query = ["degree-level", "contributor-department", "contributor-author",
+                            "contributor-committeechair", "contributor-committeecochair",
+                            "contributor-committeemember", "degree-name", "description-abstract",
+                            "Author Email", "subject-none", "title-none", "type-none"];
+
+                    }
+
                     var body_preference = JSON.parse(request_body[0])
                     var body_query = JSON.parse(request_body[1])
+
+                    console.log("The body_query is: " + request_body[1]);
+
                     if (body_preference.preference === "search") {
                         if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
-                            return {};
+                            return null;
                         }
                     }
 
@@ -93,19 +122,38 @@ class Main extends Component {
                     <div className="searchbar">
                         <DataSearch
                             componentId="search"
-                            dataField={[
-                                "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
-                            ]}
-                            // fieldWeights={[2, 1, 2, 1, 1, 1, 1, 1]}
+                            dataField={["degree-level", "contributor-department", "contributor-author",
+                                "contributor-committeechair", "contributor-committeecochair",
+                                "contributor-committeemember", "degree-name", "description-abstract",
+                                "Author Email", "subject-none", "title-none", "type-none"]}
+                            customQuery={
+                                function (value, props) {
+                                    return {
+                                        query: {
+                                            multi_match: {
+                                                query: value,
+                                                fields: advanced_query
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            fieldWeights={[1, 1, 3, 2, 2, 1, 1, 1, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
                             highlight={true}
-                            highlightField={["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title"]}
-                            placeholder="Search Tobacco"
-                            title="Search for Tobacco"
+                            highlightField={["degree-level", "contributor-department", "contributor-author",
+                                "contributor-committeechair", "contributor-committeecochair",
+                                "contributor-committeemember", "degree-name", "description-abstract",
+                                "Author Email", "subject-none", "title-none", "type-none"]}
+                            placeholder="Search ETD"
+                            title="Search for ETD"
                             react={{
-                                and: ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title"],
-                                or: ["Topic"]
+                                and: ["degree-level", "contributor-department", "contributor-author",
+                                    "contributor-committeechair", "contributor-committeecochair",
+                                    "contributor-committeemember", "degree-name", "description-abstract",
+                                    "Author Email", "subject-none", "type-none"],
+                                or: ["title-none"]
                             }}
                         // renderNoSuggestion={() => (
                         //     <div>
@@ -119,36 +167,31 @@ class Main extends Component {
                     <div className="container">
                         <div>
                             <MultiList
-                                componentId="filter_Document_Type"
-                                title="Document_Type"
-                                dataField="Document_Type"
+                                componentId="filter_type-none"
+                                title="type-none"
+                                dataField="type-none"
                                 size={100}
                                 className="filter"
                             />
 
                             <MultiList
-                                componentId="filter_availablility"
-                                dataField="availablility"
+                                componentId="filter_degree-level"
+                                dataField="degree-level"
                                 size={100}
-                                title="availablility"
+                                title="degree-level"
                                 className="filter"
                             />
 
-                            <MultiDropdownList
-                                componentId="filter_availablilitystatus"
-                                dataField="availablilitystatus"
-                                size={100}
-                                title="availablilitystatus"
-                                className="filter"
-                            />
-
-                            <DateRange
+                            {/* <DateRange
                                 componentId="filter_Document_Date"
                                 dataField="Document_Date"
                                 title="Document_Date"
-                                customQuery={this.dateQuery}
+                                // customQuery={this.dateQuery}
+                                focused={false}
+                                autoFocusEnd={true}
+                                numberOfMonths={1}
                                 initialMonth={new Date('2019-10-01')}
-                            />
+                            /> */}
 
                         </div>
 
@@ -165,7 +208,7 @@ class Main extends Component {
                                 size={5}
                                 loader="Loading Results.."
                                 react={{
-                                    and: ["filter_Document_Type", "filter_availablility", "filter_availablilitystatus", "filter_Brands", "search"]
+                                    and: ["filter_type-none", "filter_degree-level", "search"]
                                 }}
                                 render={({ data }) => (
                                     <ResultListWrapper>
@@ -177,7 +220,7 @@ class Main extends Component {
                                                         <div
                                                             className="book-title"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: res.Title,
+                                                                __html: res["title-none"],
                                                             }}
                                                         />
                                                     </ResultList.Title>
@@ -192,7 +235,7 @@ class Main extends Component {
                                                                     <div
                                                                         className="authors-list"
                                                                         dangerouslySetInnerHTML={{
-                                                                            __html: res.Witness_Name,
+                                                                            __html: res["contributor-author"] + ', ' + res["contributor-committeechair"] + ', ' + res["contributor-committeecochair"] + ', ' + res["contributor-committeemember"],
                                                                         }}
                                                                     />
                                                                 </div>
@@ -216,18 +259,18 @@ class Main extends Component {
                                                             </div> */}
                                                             </div>
                                                             <span className="pub-year">
-                                                                Pub: {res.Document_Date}
+                                                                Pub: {res["date-issued"]}
                                                             </span>
                                                             <div
                                                                 className="book-text"
                                                                 dangerouslySetInnerHTML={{
-                                                                    __html: res.Case,
+                                                                    __html: res["description-abstract"],
                                                                 }}
                                                             />
                                                             <div
                                                                 className="book-text"
                                                                 dangerouslySetInnerHTML={{
-                                                                    __html: res.Organization_Mentioned,
+                                                                    __html: res["subject-none"],
                                                                 }}
                                                             />
                                                         </div>

@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prebuild": "rm -rf ./static/build ",
-    "postbuild": "cp build/index.html ../templates/search_tobacco.html && cp -r build ../static/ && mv build/index.html templates/ &&  mv build ./static/"
+    "postbuild": "cp build/index.html ../templates/search_etd.html && cp -r build ../static/ && mv build/index.html templates/ &&  mv build ./static/"
   },
   "eslintConfig": {
     "extends": "react-app"
