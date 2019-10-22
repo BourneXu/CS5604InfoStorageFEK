@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 113px
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content button:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+img{
+  width: 648px;
+  height: 432px;
+  display: inline-block;
+  position: relative;
+}
+</style>
+
+<script>
+  function toggleDropdown(selected, id){
+    if (selected == 0) {
+      document.getElementById(id).src="{{url_for('static', filename='images/pietop5.png')}}";
+    }
+    else if (selected == 1) {
+      document.getElementById(id).src="{{url_for('static', filename='images/pietop7.png')}}";
+    }
+    else {
+      document.getElementById(id).src="{{url_for('static', filename='images/pietop9.png')}}";
+    }
+  }
+  function toggleDropdown2(selected, id){
+    if (selected == 0) {
+      document.getElementById(id).src="{{url_for('static', filename='images/bar_Bymonth.png')}}";
+    }
+    else if (selected == 1) {
+      document.getElementById(id).src="{{url_for('static', filename='images/bar_Byyear.png')}}";
+    }
+  }
+</script>
+</head>
+<body>
+
+<div class="dropdown" style="margin-left: 5%">
+  <table>
+    <div>
+      <button class="dropbtn">Pie Chart</button>
+      <div class="dropdown-content">
+        <button onclick="toggleDropdown(0, 'image')" >Display top 5</button>
+        <button onclick="toggleDropdown(1, 'image')" >Dispaly top 7</button>
+        <button onclick="toggleDropdown(2, 'image')" >Display top 9</button>
+      </div>
+    </div>
+  </table>
+</div>
+
+<div class="dropdown" style="margin-left: 45%">
+
+  <div>
+    <button class="dropbtn">Bar Chart</button>
+    <div class="dropdown-content">
+      <button onclick="toggleDropdown2(0,'image2')" >Sum For Month</button>
+      <button onclick="toggleDropdown2(1,'image2')" >Sum For Year </button>
+    </div>
+  </div>
+</div>
+</br>
+<div style="overflow: hidden; display: flex; justify-content:space-around;left: 0px;">
+  <img id="image" src = "{{url_for('static', filename='images/pietop5.png')}}" >
+  <img id="image2" src = "{{url_for('static', filename='images/bar_Bymonth.png')}}" >
+</div>
+</body>
+</html>
