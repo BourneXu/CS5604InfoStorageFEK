@@ -19,8 +19,10 @@ const { ResultListWrapper } = ReactiveList;
 
 // Global Configurations
 config.set({
-    elasticsearch: "http://localhost:9200/",
-    base_uri: "http://0.0.0.0:3000"
+    // elasticsearch: "http://localhost:9200/",
+    // base_uri: "http://0.0.0.0:3000"
+    elasticsearch: "http://2001.0468.0c80.6102.0001.7015.3fbb.aa59.ip6.name:9200/",
+    base_uri: "http://2001.0468.0c80.6102.0001.7015.bf2d.eb25.ip6.name:3000"
 });
 
 const client = axios.create({
