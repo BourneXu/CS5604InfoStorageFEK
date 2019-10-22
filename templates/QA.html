@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+<header style="background-color:#00cc00">
+  <h1 style="text-align: center;font-family:georgia,garamond,serif;font-size:56px;font-style:italic;color:white">FAQ</h1>
+</header>
+
+<button class="accordion"> <b>What is this website?</b></button>
+<div class="panel">
+  <p>This website is built for user to explore and analyze of the Electronic Theses and Dissertations (ETD) dataset from Virginia Tech, and tobacco dataset from the University of California, San Francisco. This website
+provides full-text search of Virginia Tech Electronic Theses and Dissertations (ETDs) and Tobacco Settlement documents.</p>
+<p> Aside from basic searching, this website also provides personalized recommendations and data visualizations to assist users in discovering the trends and patterns of their field of interest.</p>
+
+<p>Furthermore, a series of plots are provided for users to explore the data statistically. User can dynamically modify the appearance of plots to  better understand the data and find information that they need.</p>
+</div>
+
+<button class="accordion"><b>How does this website benefit users?</b></button>
+<div class="panel">
+  <p> VTechWorks:</p>
+  <ul>
+  <li> The VtechWorks is free to anyone in the world with an Internet connection.</li>
+  <li> More beneficial and more accessible to scholars at under-resourced institutions and in developing nations.</li>
+  <li> It has a persistent, stable link to the item record ("handle") that won't change, which makes it more reliable for others to cite and to share on social media.</li>
+  </ul>
+  <p> Tobacco Settlement Data:</p>
+  <ul>
+    <li> The tobacco settlement data set contain 91,046,507 pages in 14,867,353 documents. It provides users with the most exhausted information on tobacco documents.</li>
+    <li> The query is user-friendly. Users can simply search key words or apply filters on the search page to get the information they need.</li>
+  </ul>
+</div>
+
+<button class="accordion">Login first before using the search page</button>
+<div class="panel">
+  <p>First-time users need to click the register button on the right-top of the website. Returning users need to login before using the search page.</p>
+</div>
+<button class="accordion">Text Searching from the Homepage</button>
+<div class="panel">
+  <p>Users firstly need to choose from one of the main topics, either ETD or Tobacco, that interest you , to start with. Users can do this by simply chick on the tab that interests you.
+    There are several search options on right side of the homepage:  keyword search box, a category browse, and filters for place name and subject.</p>
+</div>
+<button class="accordion">Refining the Search Results</button>
+<div class="panel">
+  <p>Once an action has taken place on the search page. The user will be taken to a search results page. The text search box will still be present at the top, but additional options for
+     filtering will be available. This is accomplished by selected terms under the facets on the screen.</p>
+</div>
+
+<button class="accordion">Understanding the Visualization Page</button>
+<div class="panel">
+  <ul>
+    <li> On the top of the search page, users can find the visualization page. Once users click this button, they will be directly to the visualization page. On this page, a variety of visualizations,
+      for instance , tables, charts, histograms, tables, and maps, of the two dataset are provided. </li>
+      <li> The visualizations are realized using kibana, which is built on top of Elasticsearch and is a part of the ELK stack, which consists of Elasticsearch, Logstash, and Kibana.
+        It connects to Elasticsearch using the REST API. Users can User can modify the set-ups of the plots, which are provided on the visualization page and dynamically modify the
+        appearance of plots to  better understand the data and find information that they need. </li>
+  </ul>
+</div>
+
+<button class="accordion">How to contact us?</button>
+<div class="panel">
+  <p> We value your thoughts and opinions. Please send you email to the following email address and we will reply to all comments shortly. </p>
+  <p> Email: ISRxxx@vt.edu</p>
+</div>
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>

@@ -24,6 +24,13 @@ user_blueprint = Blueprint("user", __name__, template_folder="templates")
 def homepage():
     return render_template("index.html", error=error)
 
+@user_blueprint.route("/qa/")
+def qa():
+    return render_template("QA.html")
+
+@user_blueprint.route("/visual/")
+def visual():
+    return render_template("/visual.html")
 
 @user_blueprint.route("/login/", methods=["GET", "POST"])
 def login():
