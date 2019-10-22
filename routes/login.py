@@ -15,6 +15,7 @@ from passlib.hash import sha256_crypt
 import gc
 import os
 import sys
+import time
 
 user_blueprint = Blueprint("user", __name__, template_folder="templates")
 
@@ -125,9 +126,11 @@ def register_page():
                 return render_template("register.html", form=form, error=error)
 
             else:
+                ts = time.localtime()
+                rtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                 c.execute(
-                    "INSERT INTO users (username, password, email, tracking) VALUES (%s, %s, %s, %s)",
-                    ((username), (password), (email), "Fingers crossed"),
+                    "INSERT INTO users (username, password, email, register_time) VALUES (%s, %s, %s, %s)",
+                    ((username), (password), (email), (rtime)),
                 )
                 conn.commit()
                 c.close()
