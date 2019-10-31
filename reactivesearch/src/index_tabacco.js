@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import "./styles.css";
 import config from 'react-global-configuration';
+import $ from 'jquery';
 
 const { ResultListWrapper } = ReactiveList;
 
@@ -42,6 +43,7 @@ var advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organizatio
 // }
 
 class Main extends Component {
+    // generate custom query
     dateQuery(value) {
         let query = null;
         if (value) {
@@ -214,6 +216,7 @@ class Main extends Component {
                                                     <ResultList.Title>
                                                         <div
                                                             className="book-title"
+                                                            onClick={() => this.onclick_book_title(res)}
                                                             dangerouslySetInnerHTML={{
                                                                 __html: "<a href=\"" + res.url + "\">\n" + res.Title + "</a>",
                                                             }}
@@ -283,7 +286,22 @@ class Main extends Component {
                 </div>
             </ReactiveBase >
         );
+
     }
+
+    onclick_book_title = obj => {
+        var data = {
+                    method: 'post',
+                    url: '/emitlogs',
+                    data: JSON.stringify(obj),
+                    contentType: "application/json",
+                    success: function(){
+                        console.log('success');
+                        //window.location.href = obj.url;
+                    }
+                };
+        $.post(data);
+    };
 }
 
 const rootElement = document.getElementById("root");
