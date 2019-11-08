@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-11-08 13:36:25
+ * Last Modified: 2019-11-08 15:41:25
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -45,7 +45,6 @@ const client = axios.create({
     json: true
 });
 
-var advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
 
 // Main Search Page
 // With routers 
@@ -115,29 +114,28 @@ class Etd extends Component {
                     // Auto-suggestions start from 3rd characters
                     console.log("object 1: %O", request);
                     var request_body = request.body.split('\n');
-                    var searchText = document.getElementById("search-downshift-input").value;
-
-                    var sT = searchText.split(":");
-
                     var body_preference = JSON.parse(request_body[0]);
                     var body_query = JSON.parse(request_body[1]);
+                    if (body_preference.preference === "List" || body_preference === "search") {
+                        var searchText = document.getElementById("search-downshift-input").value;
+                        var sT = searchText.split(":");
 
-                    if (sT.length > 1) //the first part of the split should be the relevant field(s)
-                    {
-                        var fields = sT[0].split("+");
-                        var newfieldsinput = "[";
-                        for (var i = 0; i < fields.length; i++) {
-                            newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                            if (i != fields.length - 1) { newfieldsinput += ","; }
+                        if (sT.length > 1) //the first part of the split should be the relevant field(s)
+                        {
+                            var fields = sT[0].split("+");
+                            var newfieldsinput = "[";
+                            for (var i = 0; i < fields.length; i++) {
+                                newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
+                                if (i !== fields.length - 1) { newfieldsinput += ","; }
+
+                            }
+                            newfieldsinput += "]";
+                            // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+                            //Future work: make a function to put the fields in a variable instead of hardcoding
+                            request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
                         }
-                        newfieldsinput += "]";
-                        // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
-                        //Future work: make a function to put the fields in a variable instead of hardcoding
-                        request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
-
                     }
-
 
 
                     console.log("object 2: %O", request);
@@ -169,18 +167,6 @@ class Etd extends Component {
                                 "contributor-committeechair", "contributor-committeecochair",
                                 "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
                                 "title-none"]}
-                            // customQuery={
-                            //     function (value, props) {
-                            //         return {
-                            //             query: {
-                            //                 multi_match: {
-                            //                     query: value,
-                            //                     fields: advanced_query
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // }
                             fieldWeights={[1, 3, 3, 3, 1, 1, 1, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
@@ -359,29 +345,27 @@ class Tobacco extends Component {
                     // Auto-suggestions start from 3rd characters
                     console.log("object 1: %O", request);
                     var request_body = request.body.split('\n');
-                    var searchText = document.getElementById("search-downshift-input").value;
-
-                    var sT = searchText.split(":");
-
                     var body_preference = JSON.parse(request_body[0]);
                     var body_query = JSON.parse(request_body[1]);
+                    if (body_preference.preference === "List" || body_preference.preference === "search") {
+                        var searchText = document.getElementById("search-downshift-input").value;
+                        var sT = searchText.split(":");
+                        if (sT.length > 1) //the first part of the split should be the relevant field(s)
+                        {
+                            var fields = sT[0].split("+");
+                            var newfieldsinput = "[";
+                            for (var i = 0; i < fields.length; i++) {
+                                newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
+                                if (i !== fields.length - 1) { newfieldsinput += ","; }
 
-                    if (sT.length > 1) //the first part of the split should be the relevant field(s)
-                    {
-                        var fields = sT[0].split("+");
-                        var newfieldsinput = "[";
-                        for (var i = 0; i < fields.length; i++) {
-                            newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                            if (i != fields.length - 1) { newfieldsinput += ","; }
+                            }
+                            newfieldsinput += "]";
+                            // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+                            //Future work: make a function to put the fields in a variable instead of hardcoding
+                            request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput);
 
                         }
-                        newfieldsinput += "]";
-                        // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
-                        //Future work: make a function to put the fields in a variable instead of hardcoding
-                        request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
-
                     }
-
 
 
                     console.log("object 2: %O", request);
@@ -412,23 +396,10 @@ class Tobacco extends Component {
                             dataField={[
                                 "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
                             ]}
-                            customQuery={
-                                function (value, props) {
-                                    return {
-                                        query: {
-                                            multi_match: {
-                                                query: value,
-                                                fields: advanced_query
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            fieldWeights={[1, 3, 1, 1, 1, 1, 5, 1]}
+                            fieldWeights={[1, 3, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
                             highlight={true}
-                            highlightField={["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title"]}
                             placeholder="Search Tobacco"
                             title="Search for Tobacco"
                             react={{
