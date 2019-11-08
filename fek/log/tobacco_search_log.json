@@ -1,25 +1,216 @@
-<<<<<<< HEAD
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "richard", "filters": {}}, "dataset": "tobacco", "time": "2019-10-31 20:02:38.107755", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "richar", "filters": {}}, "dataset": "tobacco", "time": "2019-10-31 21:43:51.530064", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "richard", "filters": {}}, "dataset": "tobacco", "time": "2019-10-31 21:44:08.700303", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Richards, Ann (fact_type: Other; job_title: Former Governor of Texas; side: Defendant; witness_type: Fact)", "filters": {}}, "dataset": "tobacco", "time": "2019-10-31 21:44:38.219056", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {"Document_Type": ["deposition"]}}, "dataset": "tobacco", "time": "2019-11-07 16:49:06.847805", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {"Document_Type": ["deposition"]}}, "dataset": "tobacco", "time": "2019-11-07 16:49:09.346900", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {"Document_Type": ["deposition"], "availablility": ["public"]}}, "dataset": "tobacco", "time": "2019-11-07 16:49:09.347999", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {"Document_Type": ["deposition"], "availablility": ["public"], "availablilitystatus": ["no restrictions"]}}, "dataset": "tobacco", "time": "2019-11-07 16:49:12.829165", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {"Document_Type": ["deposition"], "availablility": ["public"]}}, "dataset": "tobacco", "time": "2019-11-07 16:49:14.243679", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "test1", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {"Document_Type": ["deposition"], "availablility": ["public"], "Document_Date": {"gte": 1567483200000, "lte": 1568174400000}}}, "dataset": "tobacco", "time": "2019-11-07 16:49:16.858033", "ip": "127.0.0.1"}}
-=======
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 16:35:17.011008", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case+Title: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 16:35:21.364372", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 16:35:30.988055", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case+Title: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 16:35:35.393011", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Title: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 16:35:38.640805", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:02.998219", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case + Title : Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:06.979383", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case+Title : Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:11.804296", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case+Title: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:15.186011", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Case+Witness_Name: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:22.379552", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "Witness_Name: Reynolds", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:25.408549", "ip": "127.0.0.1"}}
-{"status": 200, "message": "Success", "data": {"user": {"username": "Eddy", "email": "no email given"}, "activity": {"url": "http://localhost:9200/tobacco3/_msearch?", "search_text": "", "filters": {}}, "dataset": "tobacco", "time": "2019-11-07 22:44:26.845608", "ip": "127.0.0.1"}}
->>>>>>> 519bb886d472fad757a4e415fc4e46e18a9fb129
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 16:35:17.011008",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case+Title: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 16:35:21.364372",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 16:35:30.988055",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case+Title: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 16:35:35.393011",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Title: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 16:35:38.640805",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:02.998219",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case + Title : Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:06.979383",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case+Title : Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:11.804296",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case+Title: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:15.186011",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Case+Witness_Name: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:22.379552",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "Witness_Name: Reynolds",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:25.408549",
+        "ip": "127.0.0.1"
+    }
+}
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "user": {
+            "username": "Eddy",
+            "email": "no email given"
+        },
+        "activity": {
+            "url": "http://localhost:9200/tobacco3/_msearch?",
+            "search_text": "",
+            "filters": {}
+        },
+        "dataset": "tobacco",
+        "time": "2019-11-07 22:44:26.845608",
+        "ip": "127.0.0.1"
+    }
+}
