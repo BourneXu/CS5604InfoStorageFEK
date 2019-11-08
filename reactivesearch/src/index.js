@@ -48,7 +48,7 @@ const client = axios.create({
 var advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
 
 // Main Search Page
-// With routers 
+// With routers
 class Main extends Component {
     render() {
         return (
@@ -116,14 +116,13 @@ class Etd extends Component {
                     console.log("object 1: %O", request);
                     var request_body = request.body.split('\n');
                     var searchText = document.getElementById("search-downshift-input").value;
-
                     var sT = searchText.split(":");
 
                     var body_preference = JSON.parse(request_body[0]);
                     var body_query = JSON.parse(request_body[1]);
 
                     if (sT.length > 1) //the first part of the split should be the relevant field(s)
-                    {
+                    {   console.log("I was here");
                         var fields = sT[0].split("+");
                         var newfieldsinput = "[";
                         for (var i = 0; i < fields.length; i++) {
@@ -132,9 +131,9 @@ class Etd extends Component {
 
                         }
                         newfieldsinput += "]";
-                        // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+                        request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
                         //Future work: make a function to put the fields in a variable instead of hardcoding
-                        request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
+                        // request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
                     }
 
@@ -376,9 +375,9 @@ class Tobacco extends Component {
 
                         }
                         newfieldsinput += "]";
-                        // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+                        request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
                         //Future work: make a function to put the fields in a variable instead of hardcoding
-                        request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
+                        // request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
                     }
 
@@ -585,10 +584,3 @@ class Tobacco extends Component {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<Main />, rootElement);
-
-
-
-
-
-
-
