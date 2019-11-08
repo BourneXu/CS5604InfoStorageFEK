@@ -78,18 +78,18 @@ class Main extends Component {
                     var request_body = request.body.split('\n');
 
 
-                    var searchText = document.getElementById("search-downshift-input").value;
-                    // console.log("The search bar says: "+ searchText);
-                    var sT = searchText.split(":");
-                    console.log("The length of the split is " + sT.length);
-                    if (sT.length > 1) //the first part of the split should be the relevant field
-                    {
-                        advanced_query = ["Title"];
-                    }
-                    else {   //if it isn't an advanced query then reset it to match all the fields
-                        advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
+                    // var searchText = document.getElementById("search-downshift-input").value;
+                    // // console.log("The search bar says: "+ searchText);
+                    // var sT = searchText.split(":");
+                    // console.log("The length of the split is " + sT.length);
+                    // if (sT.length > 1) //the first part of the split should be the relevant field
+                    // {
+                    //     advanced_query = ["Title"];
+                    // }
+                    // else {   //if it isn't an advanced query then reset it to match all the fields
+                    //     advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
 
-                    }
+                    // }
 
                     var body_preference = JSON.parse(request_body[0])
                     var body_query = JSON.parse(request_body[1])
@@ -291,15 +291,15 @@ class Main extends Component {
 
     onclick_book_title = obj => {
         var data = {
-                    method: 'post',
-                    url: '/emitlogs',
-                    data: JSON.stringify(obj),
-                    contentType: "application/json",
-                    success: function(){
-                        console.log('success');
-                        //window.location.href = obj.url;
-                    }
-                };
+            method: 'post',
+            url: '/emitlogs',
+            data: JSON.stringify(obj),
+            contentType: "application/json",
+            success: function () {
+                console.log('success');
+                //window.location.href = obj.url;
+            }
+        };
         $.post(data);
     };
 }

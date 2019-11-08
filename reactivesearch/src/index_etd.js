@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-10-22 14:33:57
  * -----
- * Last Modified: 2019-10-22 14:46:46
+ * Last Modified: 2019-11-05 15:28:11
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -19,7 +19,7 @@ import {
     MultiDropdownList,
     DataSearch,
     SelectedFilters,
-    DateRange
+    DateRange,
 } from "@appbaseio/reactivesearch";
 import axios from "axios";
 import "./styles.css";
@@ -90,27 +90,27 @@ class Main extends Component {
                     var request_body = request.body.split('\n');
 
 
-                    var searchText = document.getElementById("search-downshift-input").value;
-                    // console.log("The search bar says: "+ searchText);
-                    var sT = searchText.split(":");
-                    console.log("The length of the split is " + sT.length);
-                    if (sT.length > 1) //the first part of the split should be the relevant field
-                    {
-                        advanced_query = ["title-none"];
-                    }
-                    else {   //if it isn't an advanced query then reset it to match all the fields
-                        advanced_query = ["degree-level", "contributor-department", "contributor-author",
-                            "contributor-committeechair", "contributor-committeecochair",
-                            "contributor-committeemember", "date-available", "date-issued",
-                            "degree-name", "description-abstract", "Author Email", "subject-none",
-                            "title-none", "type-none"];
+                    // var searchText = document.getElementById("search-downshift-input").value;
+                    // // console.log("The search bar says: "+ searchText);
+                    // var sT = searchText.split(":");
+                    // console.log("The length of the split is " + sT.length);
+                    // if (sT.length > 1) //the first part of the split should be the relevant field
+                    // {
+                    //     advanced_query = ["title-none"];
+                    // }
+                    // else {   //if it isn't an advanced query then reset it to match all the fields
+                    //     advanced_query = ["degree-level", "contributor-department", "contributor-author",
+                    //         "contributor-committeechair", "contributor-committeecochair",
+                    //         "contributor-committeemember",
+                    //         "degree-name", "description-abstract", "Author Email", "subject-none",
+                    //         "title-none", "type-none"];
 
-                    }
+                    // }
 
                     var body_preference = JSON.parse(request_body[0])
                     var body_query = JSON.parse(request_body[1])
 
-                    console.log("The body_query is: " + request_body[1]);
+                    // console.log("The body_query is: " + request_body[1]);
 
                     if (body_preference.preference === "search") {
                         if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
@@ -134,41 +134,33 @@ class Main extends Component {
                     <div className="searchbar">
                         <DataSearch
                             componentId="search"
-                            dataField={["degree-level", "contributor-department", "contributor-author",
+                            dataField={["contributor-department", "contributor-author",
                                 "contributor-committeechair", "contributor-committeecochair",
-                                "contributor-committeemember", "date-available", "date-issued",
-                                "degree-name", "description-abstract", "Author Email", "subject-none",
-                                "title-none", "type-none"]}
-                            customQuery={
-                                function (value, props) {
-                                    return {
-                                        query: {
-                                            multi_match: {
-                                                query: value,
-                                                fields: advanced_query
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            // fieldWeights={[1, 3, 1, 1, 1, 1, 5, 1]}
+                                "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
+                                "title-none"]}
+                            // customQuery={
+                            //     function (value, props) {
+                            //         return {
+                            //             query: {
+                            //                 multi_match: {
+                            //                     query: value,
+                            //                     fields: advanced_query
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // }
+                            fieldWeights={[1, 3, 3, 3, 1, 1, 1, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
                             highlight={true}
-                            highlightField={["degree-level", "contributor-department", "contributor-author",
-                                "contributor-committeechair", "contributor-committeecochair",
-                                "contributor-committeemember", "date-available", "date-issued",
-                                "degree-name", "description-abstract", "Author Email", "subject-none",
-                                "title-none", "type-none"]}
-                            placeholder="Search Tobacco"
-                            title="Search for Tobacco"
+                            placeholder="Search ETD"
+                            title="Search for ETD"
                             react={{
-                                and: ["degree-level", "contributor-department", "contributor-author",
+                                and: ["contributor-department", "contributor-author",
                                     "contributor-committeechair", "contributor-committeecochair",
-                                    "contributor-committeemember", "date-available", "date-issued",
-                                    "degree-name", "description-abstract", "Author Email", "subject-none",
-                                    "type-none"],
-                                or: ["title-none"]
+                                    "contributor-committeemember",
+                                    "degree-name", "description-abstract", "Author Email", "subject-none", "title-none"]
                             }}
                         // renderNoSuggestion={() => (
                         //     <div>
@@ -189,24 +181,23 @@ class Main extends Component {
                                 className="filter"
                             />
 
-                            <MultiList
+                            <MultiDropdownList
                                 componentId="filter_degree-level"
                                 dataField="degree-level"
                                 size={100}
                                 title="degree-level"
-                                className="filter"
                             />
 
-                            {/* <DateRange
-                                componentId="filter_Document_Date"
-                                dataField="Document_Date"
-                                title="Document_Date"
+                            <DateRange
+                                componentId="filter_date-issued"
+                                dataField="date-issued"
+                                title="date-issued"
                                 // customQuery={this.dateQuery}
                                 focused={false}
                                 autoFocusEnd={true}
                                 numberOfMonths={1}
                                 initialMonth={new Date('2019-10-01')}
-                            /> */}
+                            />
 
                         </div>
 
@@ -223,7 +214,7 @@ class Main extends Component {
                                 size={5}
                                 loader="Loading Results.."
                                 react={{
-                                    and: ["filter_type-none", "filter_degree-level", "search"]
+                                    and: ["filter_type-none", "filter_degree-level", "search", "filter_date-issued"]
                                 }}
                                 render={({ data }) => (
                                     <ResultListWrapper>
@@ -235,7 +226,7 @@ class Main extends Component {
                                                         <div
                                                             className="book-title"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: "<a href=\"" + "#res.url" + "\">\n" + res["title-none"] + "</a>",
+                                                                __html: "<a href=\"" + "#" + "\">\n" + res["title-none"] + "</a>",
                                                             }}
                                                         />
                                                     </ResultList.Title>
