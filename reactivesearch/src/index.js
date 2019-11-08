@@ -113,7 +113,9 @@ class Etd extends Component {
                 }}
                 transformRequest={request => {
                     // Auto-suggestions start from 3rd characters
+                    console.log("object 1: %O", request);
                     var request_body = request.body.split('\n');
+<<<<<<< HEAD
 
 
                     // var searchText = document.getElementById("search-downshift-input").value;
@@ -348,6 +350,29 @@ class Tobacco extends Component {
                     typography: {
                         fontFamily:
                             '"Lato", "Open Sans", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif'
+=======
+                    var searchText = document.getElementById("search-downshift-input").value;
+
+                    var sT = searchText.split(":");
+
+                    var body_preference = JSON.parse(request_body[0]);
+                    var body_query = JSON.parse(request_body[1]);
+
+                    if (sT.length > 1) //the first part of the split should be the relevant field(s)
+                    {
+                        var fields = sT[0].split("+");
+                        var newfieldsinput = "[" ;
+                        for (var i = 0; i < fields.length; i++) {
+                          newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
+                          if(i != fields.length - 1)
+                          {newfieldsinput += ",";}
+
+                        }
+                        newfieldsinput += "]";
+
+                        //Future work: make a function to put the fields in a variable instead of hardcoding
+                        request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+>>>>>>> 519bb886d472fad757a4e415fc4e46e18a9fb129
                     }
                 }}
                 transformRequest={request => {
@@ -368,10 +393,9 @@ class Tobacco extends Component {
 
                     // }
 
-                    var body_preference = JSON.parse(request_body[0])
-                    var body_query = JSON.parse(request_body[1])
 
-                    console.log("The body_query is: " + request_body[1]);
+
+                    console.log("object 2: %O", request);
 
                     if (body_preference.preference === "search") {
                         if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
