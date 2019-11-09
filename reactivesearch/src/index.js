@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-11-08 19:53:29
+ * Last Modified: 2019-11-08 19:56:16
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -44,6 +44,13 @@ const client = axios.create({
     baseURL: config.get("base_uri"),
     json: true
 });
+
+var advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
+var advanced_query2 = ["contributor-department", "contributor-author",
+    "contributor-committeechair", "contributor-committeecochair",
+    "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
+    "title-none"];
+
 
 
 // Main Search Page
@@ -135,29 +142,28 @@ class Etd extends Component {
                             request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
                         }
-                    }
 
 
-                    console.log("object 2: %O", request);
+                        console.log("object 2: %O", request);
 
-                    if (body_preference.preference === "search") {
-                        if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
-                            return null;
+                        if (body_preference.preference === "search") {
+                            if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
+                                return null;
+                            }
                         }
-                    }
 
-                    // Post logs
-                    client({
-                        method: 'post',
-                        url: '/emitlogs',
-                        data: JSON.stringify(request),
-                        headers: {
-                            "Content-Type": "application/json",
-                        }
-                    });
-                    return request
-                }
-                } //TODO: replace with apiClient function to send request to back-end (Flask API)
+                        // Post logs
+                        client({
+                            method: 'post',
+                            url: '/emitlogs',
+                            data: JSON.stringify(request),
+                            headers: {
+                                "Content-Type": "application/json",
+                            }
+                        });
+                        return request
+                    }
+                }} //TODO: replace with apiClient function to send request to back-end (Flask API)
             >
                 <div className="fek-searching">
                     <div className="searchbar">
@@ -167,6 +173,18 @@ class Etd extends Component {
                                 "contributor-committeechair", "contributor-committeecochair",
                                 "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
                                 "title-none"]}
+                            customQuery={
+                                function (value, props) {
+                                    return {
+                                        query: {
+                                            multi_match: {
+                                                query: value,
+                                                fields: advanced_query2
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             fieldWeights={[1, 3, 3, 3, 1, 1, 1, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
@@ -316,6 +334,7 @@ class Etd extends Component {
 
 // Search Page for Tobacco
 class Tobacco extends Component {
+
     onclick_book_title = obj => {
         var data = {
             method: 'post',
@@ -348,21 +367,23 @@ class Tobacco extends Component {
                     var body_preference = JSON.parse(request_body[0]);
                     var body_query = JSON.parse(request_body[1]);
                     if (body_preference.preference === "List" || body_preference.preference === "search") {
+                        console.log("I was here1");
                         var searchText = document.getElementById("search-downshift-input").value;
                         var sT = searchText.split(":");
                         if (sT.length > 1) //the first part of the split should be the relevant field(s)
                         {
+                            console.log("I was here2");
                             var fields = sT[0].split("+");
                             var newfieldsinput = "[";
                             for (var i = 0; i < fields.length; i++) {
                                 newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                                if (i !== fields.length - 1) { newfieldsinput += ","; }
+                                if (i != fields.length - 1) { newfieldsinput += ","; }
 
                             }
                             newfieldsinput += "]";
-                            // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
-                            //Future work: make a function to put the fields in a variable instead of hardcoding
+                            console.log("The newfieldsinput is: " + newfieldsinput);
                             request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput);
+
 
                         }
                     }
@@ -396,6 +417,18 @@ class Tobacco extends Component {
                             dataField={[
                                 "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
                             ]}
+                            customQuery={
+                                function (value, props) {
+                                    return {
+                                        query: {
+                                            multi_match: {
+                                                query: value,
+                                                fields: advanced_query
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             fieldWeights={[1, 3, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
