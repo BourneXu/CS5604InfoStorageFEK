@@ -45,6 +45,13 @@ const client = axios.create({
     json: true
 });
 
+var advanced_query = ["Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"];
+var advanced_query2 = ["contributor-department", "contributor-author",
+    "contributor-committeechair", "contributor-committeecochair",
+    "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
+    "title-none"];
+
+
 
 // Main Search Page
 // With routers
@@ -114,12 +121,10 @@ class Etd extends Component {
                     // Auto-suggestions start from 3rd characters
                     console.log("object 1: %O", request);
                     var request_body = request.body.split('\n');
-<<<<<<< HEAD
-=======
+
                     var searchText = document.getElementById("search-downshift-input").value;
                     var sT = searchText.split(":");
 
->>>>>>> 9e98de0ceaedd3070a4676d278f7a8bc63f2c84b
                     var body_preference = JSON.parse(request_body[0]);
                     var body_query = JSON.parse(request_body[1]);
                     if (body_preference.preference === "List" || body_preference === "search") {
@@ -134,7 +139,6 @@ class Etd extends Component {
                                 newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
                                 if (i !== fields.length - 1) { newfieldsinput += ","; }
 
-<<<<<<< HEAD
                             }
                             newfieldsinput += "]";
                             // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
@@ -142,23 +146,7 @@ class Etd extends Component {
                             request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
                         }
-=======
-                    if (sT.length > 1) //the first part of the split should be the relevant field(s)
-                    {   console.log("I was here");
-                        var fields = sT[0].split("+");
-                        var newfieldsinput = "[";
-                        for (var i = 0; i < fields.length; i++) {
-                            newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                            if (i != fields.length - 1) { newfieldsinput += ","; }
 
-                        }
-                        newfieldsinput += "]";
-                        request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
-                        //Future work: make a function to put the fields in a variable instead of hardcoding
-                        // request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
-
->>>>>>> 9e98de0ceaedd3070a4676d278f7a8bc63f2c84b
-                    }
 
 
                     console.log("object 2: %O", request);
@@ -180,7 +168,7 @@ class Etd extends Component {
                     });
                     return request
                 }
-                } //TODO: replace with apiClient function to send request to back-end (Flask API)
+              }} //TODO: replace with apiClient function to send request to back-end (Flask API)
             >
                 <div className="fek-searching">
                     <div className="searchbar">
@@ -190,6 +178,18 @@ class Etd extends Component {
                                 "contributor-committeechair", "contributor-committeecochair",
                                 "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
                                 "title-none"]}
+                                customQuery={
+                                  function (value, props) {
+                                      return {
+                                          query: {
+                                              multi_match: {
+                                                  query: value,
+                                                  fields: advanced_query2
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
                             fieldWeights={[1, 3, 3, 3, 1, 1, 1, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
@@ -339,6 +339,7 @@ class Etd extends Component {
 
 // Search Page for Tobacco
 class Tobacco extends Component {
+
     onclick_book_title = obj => {
         var data = {
             method: 'post',
@@ -370,32 +371,29 @@ class Tobacco extends Component {
                     var request_body = request.body.split('\n');
                     var body_preference = JSON.parse(request_body[0]);
                     var body_query = JSON.parse(request_body[1]);
-                    if (body_preference.preference === "List" || body_preference.preference === "search") {
+                    if (body_preference.preference === "List" || body_preference.preference === "search")
+                    {
+                        console.log("I was here1");
                         var searchText = document.getElementById("search-downshift-input").value;
                         var sT = searchText.split(":");
                         if (sT.length > 1) //the first part of the split should be the relevant field(s)
                         {
-                            var fields = sT[0].split("+");
-                            var newfieldsinput = "[";
-                            for (var i = 0; i < fields.length; i++) {
-                                newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                                if (i !== fields.length - 1) { newfieldsinput += ","; }
+                          console.log("I was here2");
+                          var fields = sT[0].split("+");
+                          var newfieldsinput = "[";
+                          for (var i = 0; i < fields.length; i++)
+                          {
+                              newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
+                              if (i != fields.length - 1) { newfieldsinput += ","; }
 
-                            }
-                            newfieldsinput += "]";
-                            // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
-                            //Future work: make a function to put the fields in a variable instead of hardcoding
-                            request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput);
+                          }
+                          newfieldsinput += "]";
+                          console.log("The newfieldsinput is: " + newfieldsinput);
+                          request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+
 
                         }
-<<<<<<< HEAD
-=======
-                        newfieldsinput += "]";
-                        request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
-                        //Future work: make a function to put the fields in a variable instead of hardcoding
-                        // request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
->>>>>>> 9e98de0ceaedd3070a4676d278f7a8bc63f2c84b
                     }
 
 
@@ -427,6 +425,18 @@ class Tobacco extends Component {
                             dataField={[
                                 "Brands", "Witness_Name", "Person_Mentioned", "Organization_Mentioned", "Title", "Topic"
                             ]}
+                            customQuery={
+                              function (value, props) {
+                                  return {
+                                      query: {
+                                          multi_match: {
+                                              query: value,
+                                              fields: advanced_query
+                                          }
+                                      }
+                                  }
+                              }
+                          }
                             fieldWeights={[1, 3, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
