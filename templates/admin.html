@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--  meta data  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+
+</head>
+
+{% if session['usertype'] == "admin" %}
+<body>
+  <h1>ADMIN</h1>
+
+</body>
+
+{% else %}
+<body>
+  <h1>Nice try you sly dog</h1>
+
+</body>
+
+{% endif %}
