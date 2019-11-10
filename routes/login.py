@@ -105,7 +105,7 @@ class RegistrationForm(Form):
     )
     confirm = PasswordField("Repeat Password")
     accept_tos = BooleanField(
-        "I accept the Terms of Service and Privacy Notice (updated Nov 1, 2019)",
+        "I accept the Terms and Conditions (updated Nov 10, 2019)",
         [validators.Required()],
     )
 
