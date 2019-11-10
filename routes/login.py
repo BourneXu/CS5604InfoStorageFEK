@@ -24,6 +24,12 @@ user_blueprint = Blueprint("user", __name__, template_folder="templates")
 def homepage():
     return render_template("index.html", error=error)
 
+
+@user_blueprint.route("/admin/")
+def admin():
+    return render_template("/admin.html")
+
+
 @user_blueprint.route("/qa/")
 def qa():
     return render_template("QA.html")
@@ -53,11 +59,13 @@ def loginprocess():
             data = c.fetchone()
             pword = data[2]
             uname = data[1]
+            utype = data[5]
             # uname = c.fetchone()[1];
 
             if sha256_crypt.verify(request.form["password"], pword):
                 session["logged_in"] = True
                 session["username"] = uname
+                session['usertype'] = utype
 
                 flash("You are now logged in")
                 # return render_template("index.html", error=error)
@@ -97,7 +105,7 @@ class RegistrationForm(Form):
     )
     confirm = PasswordField("Repeat Password")
     accept_tos = BooleanField(
-        "I accept the Terms of Service and Privacy Notice (updated Jan 22, 2015)",
+        "I accept the Terms of Service and Privacy Notice (updated Nov 1, 2019)",
         [validators.Required()],
     )
 
@@ -139,6 +147,7 @@ def register_page():
 
                 session["logged_in"] = True
                 session["username"] = username
+                session["usertype"] = "regular"
 
                 return redirect(url_for("index"))
 

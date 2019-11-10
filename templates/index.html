@@ -100,6 +100,12 @@
             <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Q&A</a> -->
             <a class="nav-link " href="/user/qa/">Q&A</a>
           </li>
+          {% if session['usertype'] == "admin" %}
+          <li class="nav-item">
+            <a class="nav-link" href="/user/admin/">Admin</a>
+          </li>
+          {% endif %}
+
         </ul>
         <!-- <nav align="right"> -->
         {% if session['logged_in'] %}
