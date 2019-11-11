@@ -2,7 +2,11 @@
  * @Author: Chris
  * Created Date: 2019-10-22 14:33:57
  * -----
+<<<<<<< HEAD
  * Last Modified: 2019-10-31 15:53:17
+=======
+ * Last Modified: 2019-11-08 13:01:03
+>>>>>>> master
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -19,7 +23,7 @@ import {
     MultiDropdownList,
     DataSearch,
     SelectedFilters,
-    DateRange
+    DateRange,
 } from "@appbaseio/reactivesearch";
 import axios from "axios";
 import "./styles.css";
@@ -89,88 +93,85 @@ class Main extends Component {
                 }}
                 transformRequest={request => {
                     // Auto-suggestions start from 3rd characters
+                    console.log("object 1: %O", request);
                     var request_body = request.body.split('\n');
-
-
                     var searchText = document.getElementById("search-downshift-input").value;
-                    // console.log("The search bar says: "+ searchText);
+
                     var sT = searchText.split(":");
-                    console.log("The length of the split is " + sT.length);
-                    if (sT.length > 1) //the first part of the split should be the relevant field
+
+                    var body_preference = JSON.parse(request_body[0]);
+                    var body_query = JSON.parse(request_body[1]);
+
+                    if (sT.length > 1) //the first part of the split should be the relevant field(s)
                     {
-                        advanced_query = ["title-none"];
-                    }
-                    else {   //if it isn't an advanced query then reset it to match all the fields
-                        advanced_query = ["degree-level", "contributor-department", "contributor-author",
-                            "contributor-committeechair", "contributor-committeecochair",
-                            "contributor-committeemember", "date-available", "date-issued",
-                            "degree-name", "description-abstract", "Author Email", "subject-none",
-                            "title-none", "type-none"];
+                        var fields = sT[0].split("+");
+                        var newfieldsinput = "[";
+                        for (var i = 0; i < fields.length; i++) {
+                            newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
+                            if (i != fields.length - 1) { newfieldsinput += ","; }
 
-                    }
-
-                    var body_preference = JSON.parse(request_body[0])
-                    var body_query = JSON.parse(request_body[1])
-
-                    console.log("The body_query is: " + request_body[1]);
-
-                    if (body_preference.preference === "search") {
-                        if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
-                            return null;
                         }
-                    }
+                        newfieldsinput += "]";
+                        // request.body = request.body.replace("[\"Brands\",\"Witness_Name\",\"Person_Mentioned\",\"Organization_Mentioned\",\"Title\",\"Topic\"]", newfieldsinput );
+                        //Future work: make a function to put the fields in a variable instead of hardcoding
+                        request.body = request.body.replace("[\"degree-level\",\"contributor-department\",\"contributor-author\",\"contributor-committeechair\",\"contributor-committeecochair\",\"contributor-committeemember\",\"date-available\",\"date-issued\",\"degree-name\",\"description-abstract\",\"Author Email\",\"subject-none\",\"title-none\",\"type-none\"]", newfieldsinput);
 
-                    // Post logs
-                    client({
-                        method: 'post',
-                        url: '/emitlogs',
-                        data: JSON.stringify(request),
-                        headers: {
-                            "Content-Type": "application/json",
+                        // }
+
+
+
+                        console.log("object 2: %O", request);
+
+                        if (body_preference.preference === "search") {
+                            if (body_query.query.bool.must[0].bool.must[0].bool.should[0].multi_match.query.length < 3) {
+                                return null;
+                            }
                         }
-                    });
-                    return request
+
+                        // Post logs
+                        client({
+                            method: 'post',
+                            url: '/emitlogs',
+                            data: JSON.stringify(request),
+                            headers: {
+                                "Content-Type": "application/json",
+                            }
+                        });
+                        return request
+                    }
                 }} //TODO: replace with apiClient function to send request to back-end (Flask API)
             >
                 <div className="fek-searching">
                     <div className="searchbar">
                         <DataSearch
                             componentId="search"
-                            dataField={["degree-level", "contributor-department", "contributor-author",
+                            dataField={["contributor-department", "contributor-author",
                                 "contributor-committeechair", "contributor-committeecochair",
-                                "contributor-committeemember", "date-available", "date-issued",
-                                "degree-name", "description-abstract", "Author Email", "subject-none",
-                                "title-none", "type-none"]}
-                            customQuery={
-                                function (value, props) {
-                                    return {
-                                        query: {
-                                            multi_match: {
-                                                query: value,
-                                                fields: advanced_query
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            // fieldWeights={[1, 3, 1, 1, 1, 1, 5, 1]}
+                                "contributor-committeemember", "degree-name", "description-abstract", "Author Email", "subject-none",
+                                "title-none"]}
+                            // customQuery={
+                            //     function (value, props) {
+                            //         return {
+                            //             query: {
+                            //                 multi_match: {
+                            //                     query: value,
+                            //                     fields: advanced_query
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // }
+                            fieldWeights={[1, 3, 3, 3, 1, 1, 1, 1, 1, 5, 1]}
                             fuzziness={0}
                             // debounce={100}
                             highlight={true}
-                            highlightField={["degree-level", "contributor-department", "contributor-author",
-                                "contributor-committeechair", "contributor-committeecochair",
-                                "contributor-committeemember", "date-available", "date-issued",
-                                "degree-name", "description-abstract", "Author Email", "subject-none",
-                                "title-none", "type-none"]}
-                            placeholder="Search Tobacco"
-                            title="Search for Tobacco"
+                            placeholder="Search ETD"
+                            title="Search for ETD"
                             react={{
-                                and: ["degree-level", "contributor-department", "contributor-author",
+                                and: ["contributor-department", "contributor-author",
                                     "contributor-committeechair", "contributor-committeecochair",
-                                    "contributor-committeemember", "date-available", "date-issued",
-                                    "degree-name", "description-abstract", "Author Email", "subject-none",
-                                    "type-none"],
-                                or: ["title-none"]
+                                    "contributor-committeemember",
+                                    "degree-name", "description-abstract", "Author Email", "subject-none", "title-none"]
                             }}
                         // renderNoSuggestion={() => (
                         //     <div>
@@ -191,24 +192,23 @@ class Main extends Component {
                                 className="filter"
                             />
 
-                            <MultiList
+                            <MultiDropdownList
                                 componentId="filter_degree-level"
                                 dataField="degree-level"
                                 size={100}
                                 title="degree-level"
-                                className="filter"
                             />
 
-                            {/* <DateRange
-                                componentId="filter_Document_Date"
-                                dataField="Document_Date"
-                                title="Document_Date"
+                            <DateRange
+                                componentId="filter_date-issued"
+                                dataField="date-issued"
+                                title="date-issued"
                                 // customQuery={this.dateQuery}
                                 focused={false}
                                 autoFocusEnd={true}
                                 numberOfMonths={1}
                                 initialMonth={new Date('2019-10-01')}
-                            /> */}
+                            />
 
                         </div>
 
@@ -225,7 +225,7 @@ class Main extends Component {
                                 size={5}
                                 loader="Loading Results.."
                                 react={{
-                                    and: ["filter_type-none", "filter_degree-level", "search"]
+                                    and: ["filter_type-none", "filter_degree-level", "search", "filter_date-issued"]
                                 }}
                                 render={({ data }) => (
                                     <ResultListWrapper>
@@ -237,7 +237,7 @@ class Main extends Component {
                                                         <div
                                                             className="book-title"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: "<a href=\"" + "#res.url" + "\">\n" + res["title-none"] + "</a>",
+                                                                __html: "<a href=\"" + "#" + "\">\n" + res["title-none"] + "</a>",
                                                             }}
                                                         />
                                                     </ResultList.Title>
