@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-11-11 15:52:51
+ * Last Modified: 2019-11-11 16:28:16
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -110,7 +110,7 @@ class Etd extends Component {
     render() {
         return (
             <ReactiveBase
-                app="tobacco3"
+                app="etd_metadata"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{

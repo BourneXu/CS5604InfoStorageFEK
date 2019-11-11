@@ -4,7 +4,7 @@ RUN apt-get update \
     && cd /usr/local/bin \
     && ln -s /usr/bin/python3 python \
     && pip3 install --upgrade pip \
-    export ENV_FOR_DYNACONF=prod
+    && export ENV_FOR_DYNACONF=prod
 
 COPY . /app
 WORKDIR /app
