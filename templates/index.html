@@ -63,6 +63,33 @@
       line-height: 1.5;
       border-radius: 0.2rem;
     }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color:#343a40;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
   </style>
 </head>
 
@@ -84,7 +111,20 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/visual/">Visualization</a>
+
+<div class="dropdown">
+  <a class="nav-link dropdown-toggle">Visualization</a>
+  <div class="dropdown-content">
+    <a href="http://2001.0468.0c80.6102.0001.7015.ccbe.4e22.ip6.name:5601/app/kibana#/dashboard/54c7b770-033b-11ea-a5f5-853689aee636?_g=()&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),panels:!((embeddableConfig:(defaultColors:('0+-+5':'rgb(247,252,245)','10+-+15':'rgb(116,196,118)','15+-+20':'rgb(35,139,69)','5+-+10':'rgb(199,233,192)'),legendOpen:!f,vis:(defaultColors:('0+-+5':'rgb(247,252,245)','10+-+15':'rgb(116,196,118)','15+-+20':'rgb(35,139,69)','5+-+10':'rgb(199,233,192)'),legendOpen:!t)),gridData:(h:25,i:'4be5fb3c-1f60-4ade-bf28-984d44d927d6',w:48,x:0,y:0),id:'6340b730-033f-11ea-a5f5-853689aee636',panelIndex:'4be5fb3c-1f60-4ade-bf28-984d44d927d6',type:visualization,version:'7.4.0'),(embeddableConfig:(vis:(legendOpen:!f)),gridData:(h:14,i:'82ab7d48-ec4d-4fd4-8521-e67b1ba584ff',w:21,x:0,y:25),id:fc02cd50-033a-11ea-a5f5-853689aee636,panelIndex:'82ab7d48-ec4d-4fd4-8521-e67b1ba584ff',type:visualization,version:'7.4.0'),(embeddableConfig:(),gridData:(h:24,i:a8d4f8ef-4269-400c-8300-f4db8a9f6d0f,w:27,x:21,y:25),id:'5328a700-03f7-11ea-a5f5-853689aee636',panelIndex:a8d4f8ef-4269-400c-8300-f4db8a9f6d0f,type:visualization,version:'7.4.0'),(embeddableConfig:(),gridData:(h:23,i:'1b26042f-63c3-4c3f-b3ad-5ca052dea1ae',w:21,x:0,y:39),id:'672a0370-03fc-11ea-a5f5-853689aee636',panelIndex:'1b26042f-63c3-4c3f-b3ad-5ca052dea1ae',type:visualization,version:'7.4.0'),(embeddableConfig:(),gridData:(h:26,i:fc89f5c7-0372-49c4-856f-acbb5421fad8,w:27,x:21,y:49),id:'1efa3060-0402-11ea-a5f5-853689aee636',panelIndex:fc89f5c7-0372-49c4-856f-acbb5421fad8,type:visualization,version:'7.4.0'),(embeddableConfig:(vis:(legendOpen:!f)),gridData:(h:13,i:'65b9db7f-82ba-4334-8183-21f96b5243a1',w:21,x:0,y:62),id:efb207e0-03fe-11ea-a5f5-853689aee636,panelIndex:'65b9db7f-82ba-4334-8183-21f96b5243a1',type:visualization,version:'7.4.0')),query:(language:kuery,query:''),timeRestore:!f,title:'ETD+Dashboard',viewMode:view)
+">ETD</a>
+    <a href="http://2001.0468.0c80.6102.0001.7015.ccbe.4e22.ip6.name:5601/app/kibana#/dashboard/fdd8b1f0-04ff-11ea-a5f5-853689aee636?_g=()&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),panels:!((embeddableConfig:(),gridData:(h:15,i:'79ab8fb9-ab9f-4508-b399-441158ef6d4d',w:24,x:0,y:0),id:'08198a00-f6d1-11e9-a8d6-c5fd3d727271',panelIndex:'79ab8fb9-ab9f-4508-b399-441158ef6d4d',type:visualization,version:'7.4.0'),(embeddableConfig:(),gridData:(h:15,i:dc480acf-1eca-4ec2-a836-dd3e8ab17abe,w:24,x:24,y:0),id:ec12a170-0337-11ea-a5f5-853689aee636,panelIndex:dc480acf-1eca-4ec2-a836-dd3e8ab17abe,type:visualization,version:'7.4.0')),query:(language:kuery,query:''),timeRestore:!f,title:'Tobacco+Dashboard',viewMode:view)
+">Tobacco</a>
+  </div>
+</div>
+          <!-- <div class="container"> -->
+             <!-- <div class="dropdown"> -->
+            <!-- <a data-fancybox class="nav-link float-right" data-src="#visual" href="javascript:;">Visualization</a> -->
+          <!-- </div> -->
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -201,7 +241,11 @@
       </div>
     </div>
   </footer>
-
+    <!-- visualization -->
+  <div style="display: none;" id="visual">
+  <button href="https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select">Vis1</button>
+  <button href="https://www.w3schools.com/tags/tag_select.asp">Vis2</button>
+  </div>
   <!-- login -->
   <div style="display: none;" id="login">
     <form action="/user/loginprocess/" method="post" class="fancybox-content">
