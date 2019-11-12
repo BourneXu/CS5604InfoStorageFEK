@@ -2,12 +2,17 @@
  * @Author: Chris
  * Created Date: 2019-11-11 17:19:58
  * -----
- * Last Modified: 2019-11-11 18:26:49
+ * Last Modified: 2019-11-11 21:07:03
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
  */
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import {
+    Route,
+    HashRouter
+} from "react-router-dom";
 // Import React FilePond
 import { FilePond, registerPlugin } from "react-filepond";
 
@@ -121,3 +126,19 @@ export class UploaderTobacco extends Component {
 }
 
 
+
+class Main extends Component {
+    render() {
+        return (
+            <HashRouter forceRefresh={false}>
+                <div>
+                    <Route exact path="/upload/etd" component={UploaderETD} />
+                    <Route exact path="/upload/tobacco" component={UploaderTobacco} />
+                </div>
+            </HashRouter>
+        )
+    }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<Main />, rootElement);

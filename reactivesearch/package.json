@@ -48,5 +48,9 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "/static/build"
+  "homepage": "/static/build",
+  "devDependencies": {
+    "react-app-rewired": "^2.1.5",
+    "rewire-entry": "^1.0.1"
+  }
 }
