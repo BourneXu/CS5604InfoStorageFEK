@@ -4,7 +4,7 @@ from routes.login import user_blueprint
 from routes.log import log_blueprint
 import os
 from flask_cors import CORS
-
+import flask_monitoringdashboard as dashboard
 
 app = Flask(__name__)
 CORS(app)
@@ -13,6 +13,8 @@ app.secret_key = os.urandom(12)
 # SESSION_TYPE = "filesystem"
 # app.config.from_object(__name__)
 # Session(app)
+
+dashboard.bind(app)
 
 
 @app.route("/", methods=["GET", "POST"])
