@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-11-08 19:56:16
+ * Last Modified: 2019-11-11 18:10:49
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -31,6 +31,7 @@ import axios from "axios";
 import "./styles.css";
 import config from 'react-global-configuration';
 import $ from 'jquery';
+import { UploaderETD, UploaderTobacco } from './upload'
 
 const { ResultListWrapper } = ReactiveList;
 
@@ -72,6 +73,8 @@ class Main extends Component {
                     </nav> */}
                     <Route exact path="/etd" component={Etd} />
                     <Route exact path="/tobacco" component={Tobacco} />
+                    <Route exact path="/etd/upload" component={UploaderETD} />
+                    <Route exact path="/tobacco/upload" component={UploaderTobacco} />
                 </div>
             </HashRouter>
 
@@ -377,7 +380,7 @@ class Tobacco extends Component {
                             var newfieldsinput = "[";
                             for (var i = 0; i < fields.length; i++) {
                                 newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                                if (i != fields.length - 1) { newfieldsinput += ","; }
+                                if (i !== fields.length - 1) { newfieldsinput += ","; }
 
                             }
                             newfieldsinput += "]";
