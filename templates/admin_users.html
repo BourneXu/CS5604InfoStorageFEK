@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--  meta data  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/startbootstrap/vendor/bootstrap/css//bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+      integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- Custom fonts for this template -->
+    <link href="../../static/css/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../../static/css/startbootstrap/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet"
+      type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+      type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/startbootstrap/css/landing-page.min.css" rel="stylesheet">
+
+    <!-- fancy boxes -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="../../static/js/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="../../static/js/jquery.fancybox.min.js"></script>
+
+    <!-- sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+
+    <style>
+      body
+      {
+        position: relative;
+        background-color: #343a40;
+        background: url("../../static/css/startbootstrap/img/bg-masthead.jpg") no-repeat center center;
+        background-size: cover;
+      }
+
+
+      li
+      {
+        line-height:25px;
+      }
+
+      ul,li
+      {
+        list-style:none;
+        margin:0;
+        padding:0;
+        text-indent:10px;
+        text-align: center;
+        font-size: 24px;
+
+
+      }
+
+      .imgcontainer {
+        text-align: center;
+        margin: auto;
+      }
+
+
+    </style>
+
+</head>
+
+{% if session['usertype'] == "admin" %}
+<body>
+  <div>
+    <a href="/user/admin/">
+      <img src="https://cdn4.iconfinder.com/data/icons/bloggers-1-to-7-vol-PNG/512/back.png" alt="Go Back" style="width:70px;height:75px;border:0;">
+    </a>
+  </div>
+  <h1 style="text-align: center">{{username}}'s Profile </h1>
+  <br> <br>
+  <ul>
+    <li>
+      {% for message in get_flashed_messages() %}
+
+      <div class = "alert alert-warning">
+      <button type = "button" class ="close" data-dismiss="alert"> &times; </button>
+      {{  message  }}
+      </div>
+
+      {%  endfor %}
+    </li>
+    <li>
+          <span style = "color: red;"> Username: </span> {{userinfo[0]}} &nbsp &nbsp
+            <a data-fancybox class="btn btn-primary btn-sm" data-src="#cu" href="javascript:;">
+              Change username
+            </a>
+
+
+    </li> <br>
+
+    <li>
+          <span style = "color: red;"> User Email: </span> {{userinfo[1]}} &nbsp &nbsp
+            <a data-fancybox class="btn btn-primary btn-sm" data-src="#ce" href="javascript:;">
+              Change email
+            </a>
+    </li> <br>
+
+    <li>
+          <span style = "color: red;"> Registration Time: </span> {{userinfo[2]}}
+    </li> <br>
+
+    <li>
+          <form action="/user/change_user_type/" method = "post"  >
+            <span style = "color: red;"> User Type: </span> {{userinfo[3]}}
+            &nbsp &nbsp
+            {% if userinfo[3] == "regular" %}
+              <button class="btn btn-primary btn-sm" data-src="#" name="username" value="{{username}}" type="submit">Upgrade to admin</button>
+            {% endif %}
+          </form>
+    </li>
+    <br>
+    <li>
+        <form action="/user/delete_user/" method = "post"  >
+          <a data-fancybox class="btn btn-primary btn-sm" data-src="#delete" href="javascript:;">
+            Delete this user
+          </a>
+        </form>
+    </li>
+
+  </ul>
+
+  <!-- Change Username -->
+  <div style="display: none;" id="cu">
+    <form action="/user/change_username/" method="post" class="fancybox-content">
+      <h2 align="center">Change username</h2>
+      <div class="imgcontainer">
+        <img src="http://wprdea.org/image/img_avatar.png" alt="Avatar" class="avatar" width="100" height="100px">
+      </div>
+      <div align="center">
+        <input type="hidden" name="username" value="{{username}}">
+        <input type="hidden" name="userinfo" value="{{userinfo}}">
+
+        <label for="newusername"><b>Enter New Username</b></label>
+        <input class="form-control" type="text" placeholder="Enter Username" name="newusername" required>
+        <p></p>
+        <label for="newusername2"><b>Reenter New Username</b></label>
+        <input class="form-control" type="text" placeholder="Reenter Username" name="newusername2" required>
+        <p></p>
+        <input class="btn btn-primary btn-sm"  type="submit" value="Change Username"></input>
+        <p></p>
+
+      </div>
+    </form>
+  </div>
+
+
+
+
+  <!-- Delete a User -->
+  <div style="display: none;" id="delete">
+    <form action="/user/delete_user/" method="post" class="fancybox-content">
+      <h2 align="center">Delete {{username}}</h2>
+      <div class="imgcontainer">
+        <img src="http://wprdea.org/image/img_avatar.png" alt="Avatar" class="avatar" width="100" height="100px">
+      </div>
+      <br><br>
+      <div align="center">
+        <input type="hidden" name="username" value="{{username}}">
+        <input type="hidden" name="userinfo" value="{{userinfo}}">
+        <input class="btn btn-danger btn-sm"  type="submit" value="Delete user"></input>&nbsp&nbsp&nbsp&nbsp
+        <input type='button' class="btn btn-dark btn-sm"  value='Cancel' data-fancybox-close />
+        <p></p>
+
+      </div>
+    </form>
+  </div>
+
+
+
+  <!-- Change Email -->
+  <div style="display: none;" id="ce">
+    <form action="/user/change_email/" method="post" class="fancybox-content">
+      <h2 align="center">Change email</h2>
+      <div class="imgcontainer">
+        <img src="http://wprdea.org/image/img_avatar.png" alt="Avatar" class="avatar" width="100" height="100px">
+      </div>
+      <div align="center">
+        <input type="hidden" name="username" value="{{username}}">
+        <input type="hidden" name="oldemail" value="{{userinfo[1]}}">
+
+
+        <label for="newemail"><b>Enter New Email</b></label>
+        <input class="form-control" type="text" placeholder="Enter Email" name="newemail" required>
+        <p></p>
+        <label for="newemail2"><b>Reenter New Email</b></label>
+        <input class="form-control" type="text" placeholder="Reenter Email" name="newemail2" required>
+        <p></p>
+        <input class="btn btn-primary btn-sm"  type="submit" value="Change Email"></input>
+        <p></p>
+
+      </div>
+    </form>
+  </div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+  integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+  integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+  crossorigin="anonymous"></script>
+
+</body>
+
+{% else %}
+<body>
+  <h1>Nice try you sly dog</h1>
+
+</body>
+
+{% endif %}
+
+
+
+
+
+
+
+  </html>

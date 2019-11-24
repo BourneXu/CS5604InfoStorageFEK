@@ -9,11 +9,72 @@
 
     <link rel="stylesheet" href="/static/style.css" type="text/css">
 
+    <style>
+      body
+      {
+        position: relative;
+        background-color: #343a40;
+        background: url("../../static/css/startbootstrap/img/bg-masthead.jpg") no-repeat center center;
+        background-size: cover;
+      }
+
+      nav
+      {
+        border:1px solid #000;
+        font-family:arial;
+        height:300px;
+        width:200px;
+
+      }
+
+      li
+      {
+        line-height:25px;
+      }
+
+      ol,li
+      {
+        list-style:none;
+        max-height:300px;
+        margin:0;
+        overflow:auto;
+        padding:0;
+        text-indent:10px;
+        text-align: center;
+        font-size: 24px;
+
+
+      }
+
+
+    </style>
+
 </head>
 
 {% if session['usertype'] == "admin" %}
 <body>
-  <h1>ADMIN</h1>
+  <div>
+    <a href="/">
+      <img src="https://imageog.flaticon.com/icons/png/512/25/25694.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF" alt="Home" style="width:80px;height:50px;border:0;">
+    </a>
+  </div>
+  <h1 style="text-align: center">Users List: </h1>
+  <div class = "nav">
+    <ol>
+      <!-- For loop logic of jinja template -->
+    {%for i in range(0, len)%}
+
+        <li>
+          <form action="/user/admin_users/" method = "post"  >
+          {{Users[i]}} <button style = "font-size: 18px; background-color: #007bff; color: white;" name="username" value="{{Users[i]}}" type="submit">View</button>
+
+          </form>
+        </li><p>
+
+    {%endfor%}
+
+    </ol>
+  </div>
 
 </body>
 
