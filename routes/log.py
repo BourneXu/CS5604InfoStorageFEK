@@ -33,7 +33,7 @@ def emitlogs():
     try:
         if request.method == "POST":
             logs = request.get_json()
-            print(logs)
+            #print(logs)
             # print(dataset, username, timestamp, ip, url)
             index_name = ''
             if 'headers' in logs: # search log
@@ -67,7 +67,8 @@ def emitlogs():
                 host = esurl[esurl.find('//')+2:esurl.rfind(':')]
                 port = esurl[esurl.rfind(':')+1:-1]
                 es = Elasticsearch([{"host": host, "port": int(port)}])
-                #es.indices.create(index=dataset + "_search_log", ignore=400)
+                if not es.indices.exists(index=index_name):
+                    es.indices.create(index=dataset + "_search_log", ignore=400)
                 es_out = es.index(index=index_name, body=res)
 
         return Response(
