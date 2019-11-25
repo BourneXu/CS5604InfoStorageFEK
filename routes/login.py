@@ -29,6 +29,85 @@ def homepage():
     return render_template("index.html", error=error)
 
 
+class AdminCreateForm(Form):
+    username = TextField("Username", [validators.Length(min=4, max=20)])
+    email = TextField("Email Address", [validators.Length(min=6, max=50)])
+    password = PasswordField(
+        "New Password",
+        [validators.Required(), validators.EqualTo("confirm", message="Passwords must match")],
+    )
+    confirm = PasswordField("Repeat Password")
+    accept_tos = BooleanField(
+        "I accept the Terms and Conditions (updated Nov 10, 2019)",
+        [validators.Required()],
+    )
+
+@user_blueprint.route("/admin_create/" , methods=["GET", "POST"])
+def admin_create():
+    try:
+        error = ""
+        form = AdminCreateForm(request.form)
+        usernameCurrent = request.form["username"]
+        username = form.username.data
+
+
+        print("Did the form validate?" + str(form.validate()));
+        if request.method == "POST" and form.validate():
+            print("Im here 1")
+
+            email = form.email.data
+            password = sha256_crypt.encrypt((str(form.password.data)))
+            c, conn = connection()
+            x = c.execute("SELECT * FROM users WHERE username = (%s)", (username))
+            y = c.execute("SELECT * FROM users WHERE email = (%s)", (email))
+
+            if int(x) > 0:
+                print("Im here 2")
+                error = "That username is already taken, please choose another."
+                return render_template("admin_create.html", form=form, username=usernameCurrent, error=error)
+            if int(y) > 0:
+                print("Im here 3")
+                error = "That email is already taken, please choose another."
+                return render_template("admin_create.html", form=form, username=usernameCurrent, error=error)
+
+            else:
+                error = ""
+                print("Im here 4")
+                print("The current username is: "+ usernameCurrent)
+
+                ts = time.localtime()
+                rtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                c.execute(
+                    "INSERT INTO users (username, password, email, register_time) VALUES (%s, %s, %s, %s)",
+                    ((username), (password), (email), (rtime)),
+                )
+                conn.commit()
+
+                data3 = c.execute(
+                    "SELECT * FROM users WHERE username = (%s)", (username)
+                )
+                data3 = c.fetchone()
+                print("The current user is: " + data3[1])
+                UserInfo = []
+                UserInfo.append(data3[1]) #username
+                UserInfo.append(data3[3]) #email
+                UserInfo.append(data3[4]) #registration time
+                UserInfo.append(data3[5]) #user_type/access level
+
+                c.close()
+                conn.close()
+                gc.collect()
+
+                return render_template("admin_users.html", form=form, username=username, userinfo = UserInfo, error = error)
+
+        print("I'm here 5")
+        return render_template("admin_create.html", form=form, username=username, error = error)
+
+    except Exception as e:
+        return str(e)
+
+
+
 @user_blueprint.route("/delete_user/" , methods=["GET", "POST"])
 def delete_user():
     if request.method == "POST":
@@ -357,7 +436,7 @@ class RegistrationForm(Form):
     email = TextField("Email Address", [validators.Length(min=6, max=50)])
     password = PasswordField(
         "New Password",
-        [validators.Required(), validators.EqualTo("confirm", message="Passwords must match")],
+        [validators.Required(), validators.EqualTo("confirm", message="Error: Passwords must match")],
     )
     confirm = PasswordField("Repeat Password")
     accept_tos = BooleanField(
@@ -409,7 +488,7 @@ def register_page():
 
                 return redirect(url_for("index"))
 
-        return render_template("register.html", form=form)
+        return render_template("register.html", form=form, error = error)
 
     except Exception as e:
         return str(e)

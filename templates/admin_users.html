@@ -63,6 +63,11 @@
         margin: auto;
       }
 
+      .error
+      {
+          color: red
+      }
+
 
     </style>
 
@@ -87,7 +92,9 @@
       </div>
 
       {%  endfor %}
+
     </li>
+
     <li>
           <span style = "color: red;"> Username: </span> {{userinfo[0]}} &nbsp &nbsp
             <a data-fancybox class="btn btn-primary btn-sm" data-src="#cu" href="javascript:;">
