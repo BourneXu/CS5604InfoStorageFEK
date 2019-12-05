@@ -82,7 +82,7 @@ This repo contains `Dockerfile` already.
 1. Build images and update imgaes
 
    ```bash
-   docker build --rm -f "Dockerfile" -t [your_dockerhub_username]/fek_test:0.0.0 
+   docker build --rm -f "Dockerfile" -t [your_dockerhub_username]/fek_test:0.0.0 .
    ```
 
 2. Connect to your DockerHub
