@@ -99,6 +99,8 @@ This repo contains `Dockerfile` already.
 
 ### Kubernetes
 
+Commands listed below only need to be executed the during the first time you deploy your images. Afterwards, the modification in your image will be implemented in your service autometically.
+
 Before you deploy containers on the Kubernetes cluster. Make sure you have already setup the Kubernetes config so that you could access the cluster remotely. You should update `~/.kube/config` . Then you can check if you could connect to the cluster.
 
 ```bash
@@ -108,7 +110,7 @@ NAME      			TYPE     			CLUSTER-IP      EXTERNAL-IP       PORT(S)          AGE
 fek-web-test    ClusterIP     10.1.1.1      	<none>            3000/TCP         15h
 ```
 
-Then, let's start to deploy your services (Commands listed below only need to be executed the during the first time you deploy your images. Afterwards, the modification in your image will be implemented in your service autometically).
+Then, let's start to deploy your services.
 
 1. Deploy your images on the Kubernetes cluster. Pull the image from the repository and create a container on the cluster.
 
