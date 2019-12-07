@@ -369,9 +369,13 @@ def admin():
 def qa():
     return render_template("QA.html")
 
-@user_blueprint.route("/visual/")
-def visual():
-    return render_template("/visual.html")
+@user_blueprint.route("/ETD_visual/")
+def visual1():
+    return render_template("/ETD_visual.html")
+
+@user_blueprint.route("/Tobacco_visual/")
+def visual2():
+    return render_template("/Tobacco_visual.html")
 
 @user_blueprint.route("/login/", methods=["GET", "POST"])
 def login():
