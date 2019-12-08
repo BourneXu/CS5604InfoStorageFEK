@@ -214,21 +214,21 @@ class Etd extends Component {
                             <MultiList
                                 componentId="filter_type-none"
                                 title="type-none"
-                                dataField="type-none"
+                                dataField="type-none.keyword"
                                 size={100}
                                 className="filter"
                             />
 
                             <MultiDropdownList
                                 componentId="filter_degree-level"
-                                dataField="degree-level"
+                                dataField="degree-level.keyword"
                                 size={100}
                                 title="degree-level"
                             />
 
                             <DateRange
                                 componentId="filter_date-issued"
-                                dataField="date-issued"
+                                dataField="date-issued.keyword"
                                 title="date-issued"
                                 // customQuery={this.dateQuery}
                                 focused={false}
@@ -456,14 +456,14 @@ class Tobacco extends Component {
                             <MultiList
                                 componentId="filter_Document_Type"
                                 title="Document_Type"
-                                dataField="Document_Type"
+                                dataField="Document_Type.keyword"
                                 size={100}
                                 className="filter"
                             />
 
                             <MultiList
                                 componentId="filter_availablility"
-                                dataField="availablility"
+                                dataField="availablility.keyword"
                                 size={100}
                                 title="availablility"
                                 className="filter"
@@ -471,7 +471,7 @@ class Tobacco extends Component {
 
                             <MultiDropdownList
                                 componentId="filter_availablilitystatus"
-                                dataField="availablilitystatus"
+                                dataField="availablilitystatus.keyword"
                                 size={100}
                                 title="availablilitystatus"
                                 className="filter"
@@ -479,7 +479,7 @@ class Tobacco extends Component {
 
                             <DateRange
                                 componentId="filter_Document_Date"
-                                dataField="Document_Date"
+                                dataField="Document_Date.keyword"
                                 title="Document_Date"
                                 // customQuery={this.dateQuery}
                                 focused={false}
