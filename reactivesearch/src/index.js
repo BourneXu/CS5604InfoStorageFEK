@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-11-11 18:10:49
+ * Last Modified: 2019-12-10 01:43:26
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -10,10 +10,10 @@
 
 import ReactDOM from "react-dom";
 import {
-    BrowserRouter as Router,
-    Switch,
+    // BrowserRouter as Router,
+    // Switch,
     Route,
-    Link,
+    // Link,
     HashRouter
 } from "react-router-dom";
 import React, { Component } from "react";
@@ -23,6 +23,7 @@ import {
     ReactiveList,
     MultiList,
     MultiDropdownList,
+    MultiDataList,
     DataSearch,
     SelectedFilters,
     DateRange
@@ -111,7 +112,7 @@ class Etd extends Component {
     render() {
         return (
             <ReactiveBase
-                app="etd_metadata"
+                app="30k"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{
@@ -211,25 +212,44 @@ class Etd extends Component {
 
                     <div className="container">
                         <div>
-                            <MultiList
+
+                            <MultiDataList
                                 componentId="filter_type-none"
-                                title="type-none"
-                                dataField="type-none.keyword"
-                                size={100}
+                                dataField="type-none"
+                                // size={100}
+                                data={
+                                    [{
+                                        label: "Thesis",
+                                        value: "thesis"
+                                    },
+                                    {
+                                        label: "Dissertation",
+                                        value: "Dissertation "
+                                    },]
+                                }
+                                title="Type"
                                 className="filter"
                             />
 
-                            <MultiDropdownList
+                            <MultiDataList
                                 componentId="filter_degree-level"
-                                dataField="degree-level.keyword"
-                                size={100}
-                                title="degree-level"
+                                dataField="degree-level"
+                                data={
+                                    [{
+                                        label: "masters",
+                                        value: "masters"
+                                    }, {
+                                        label: "doctoral",
+                                        value: "doctoral"
+                                    },]
+                                }
+                                title="Degree Level"
                             />
 
                             <DateRange
                                 componentId="filter_date-issued"
-                                dataField="date-issued.keyword"
-                                title="date-issued"
+                                dataField="date-issued"
+                                title="Date Issued"
                                 // customQuery={this.dateQuery}
                                 focused={false}
                                 autoFocusEnd={true}
@@ -264,7 +284,7 @@ class Etd extends Component {
                                                         <div
                                                             className="book-title"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: "<a href=\"" + "#" + "\" target=\"_blank\">\n" + res["title-none"] + "</a>",
+                                                                __html: "<a href=\"" + res["identifier-uri"] + "\" target=\"_blank\">\n" + res["title-none"] + "</a>",
                                                             }}
                                                         />
                                                     </ResultList.Title>
@@ -317,6 +337,13 @@ class Etd extends Component {
                                                                     __html: res["subject-none"],
                                                                 }}
                                                             />
+
+                                                            <div
+                                                                className="book-text"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: res["type-none"]
+                                                                }}
+                                                            />
                                                         </div>
                                                     </ResultList.Description>
 
@@ -354,7 +381,7 @@ class Tobacco extends Component {
     render() {
         return (
             <ReactiveBase
-                app="tobacco3"
+                app="tobacco"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{
@@ -456,14 +483,14 @@ class Tobacco extends Component {
                             <MultiList
                                 componentId="filter_Document_Type"
                                 title="Document_Type"
-                                dataField="Document_Type.keyword"
+                                dataField="Document_Type"
                                 size={100}
                                 className="filter"
                             />
 
                             <MultiList
                                 componentId="filter_availablility"
-                                dataField="availablility.keyword"
+                                dataField="availablility"
                                 size={100}
                                 title="availablility"
                                 className="filter"
@@ -471,7 +498,7 @@ class Tobacco extends Component {
 
                             <MultiDropdownList
                                 componentId="filter_availablilitystatus"
-                                dataField="availablilitystatus.keyword"
+                                dataField="availablilitystatus"
                                 size={100}
                                 title="availablilitystatus"
                                 className="filter"
@@ -479,7 +506,7 @@ class Tobacco extends Component {
 
                             <DateRange
                                 componentId="filter_Document_Date"
-                                dataField="Document_Date.keyword"
+                                dataField="Document_Date"
                                 title="Document_Date"
                                 // customQuery={this.dateQuery}
                                 focused={false}
@@ -569,6 +596,7 @@ class Tobacco extends Component {
                                                                     __html: res.Organization_Mentioned,
                                                                 }}
                                                             />
+
                                                         </div>
                                                     </ResultList.Description>
 
