@@ -1,10 +1,10 @@
 FROM ubuntu:latest
+ENV ENV_FOR_DYNACONF prod
 RUN apt-get update \
     && apt-get install -y python3-pip python3-dev \
     && cd /usr/local/bin \
     && ln -s /usr/bin/python3 python \
-    && pip3 install --upgrade pip \
-    && export ENV_FOR_DYNACONF=prod
+    && pip3 install --upgrade pip 
 
 COPY . /app
 WORKDIR /app
