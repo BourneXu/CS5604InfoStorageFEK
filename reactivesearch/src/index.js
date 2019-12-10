@@ -2,7 +2,7 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-12-10 01:43:26
+ * Last Modified: 2019-12-10 01:50:59
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -482,7 +482,7 @@ class Tobacco extends Component {
                         <div>
                             <MultiList
                                 componentId="filter_Document_Type"
-                                title="Document_Type"
+                                title="Document Type"
                                 dataField="Document_Type"
                                 size={100}
                                 className="filter"
@@ -492,7 +492,7 @@ class Tobacco extends Component {
                                 componentId="filter_availablility"
                                 dataField="availablility"
                                 size={100}
-                                title="availablility"
+                                title="Availablility"
                                 className="filter"
                             />
 
@@ -500,14 +500,14 @@ class Tobacco extends Component {
                                 componentId="filter_availablilitystatus"
                                 dataField="availablilitystatus"
                                 size={100}
-                                title="availablilitystatus"
+                                title="Availablility Status"
                                 className="filter"
                             />
 
                             <DateRange
                                 componentId="filter_Document_Date"
                                 dataField="Document_Date"
-                                title="Document_Date"
+                                title="Document Date"
                                 // customQuery={this.dateQuery}
                                 focused={false}
                                 autoFocusEnd={true}
