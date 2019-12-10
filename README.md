@@ -82,7 +82,7 @@ This repo contains `Dockerfile` already.
 1. Build images and update imgaes
 
    ```bash
-   docker build --rm -f "Dockerfile" -t [your_dockerhub_username]/fek_test:0.0.0 
+   docker build --rm -f "Dockerfile" -t [your_dockerhub_username]/fek_test:0.0.0 .
    ```
 
 2. Connect to your DockerHub
@@ -98,6 +98,8 @@ This repo contains `Dockerfile` already.
    ```
 
 ### Kubernetes
+
+Commands listed below only need to be executed during the first time you deploy your images. Afterwards, the modification in your image will be implemented in your service autometically.
 
 Before you deploy containers on the Kubernetes cluster. Make sure you have already setup the Kubernetes config so that you could access the cluster remotely. You should update `~/.kube/config` . Then you can check if you could connect to the cluster.
 

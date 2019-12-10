@@ -2,7 +2,11 @@
  * @Author: Chris
  * Created Date: 2019-11-07 14:21:27
  * -----
- * Last Modified: 2019-11-11 16:28:16
+<<<<<<< HEAD
+ * Last Modified: 2019-12-10 01:58:30
+=======
+ * Last Modified: 2019-12-10 01:58:30
+>>>>>>> master
  * Modified By: Chris
  * -----
  * Copyright (c) 2019
@@ -10,10 +14,10 @@
 
 import ReactDOM from "react-dom";
 import {
-    BrowserRouter as Router,
-    Switch,
+    // BrowserRouter as Router,
+    // Switch,
     Route,
-    Link,
+    // Link,
     HashRouter
 } from "react-router-dom";
 import React, { Component } from "react";
@@ -23,6 +27,7 @@ import {
     ReactiveList,
     MultiList,
     MultiDropdownList,
+    MultiDataList,
     DataSearch,
     SelectedFilters,
     DateRange
@@ -31,6 +36,7 @@ import axios from "axios";
 import "./styles.css";
 import config from 'react-global-configuration';
 import $ from 'jquery';
+import { UploaderETD, UploaderTobacco } from './upload'
 
 const { ResultListWrapper } = ReactiveList;
 
@@ -39,7 +45,7 @@ config.set({
     // elasticsearch: "http://localhost:9200/",
     // base_uri: "http://0.0.0.0:3000"
     elasticsearch: "http://2001.0468.0c80.6102.0001.7015.40b4.a1fb.ip6.name:9200/",
-    base_uri: "http://2001.0468.0c80.6102.0001.7015.a60f.cf44.ip6.name:3000/"
+    base_uri: "http://2001.0468.0c80.6102.0001.7015.b2eb.3731.ip6.name:3000/"
 });
 
 const client = axios.create({
@@ -74,6 +80,8 @@ class Main extends Component {
                     </nav> */}
                     <Route exact path="/etd" component={Etd} />
                     <Route exact path="/tobacco" component={Tobacco} />
+                    <Route exact path="/etd/upload" component={UploaderETD} />
+                    <Route exact path="/tobacco/upload" component={UploaderTobacco} />
                 </div>
             </HashRouter>
 
@@ -110,7 +118,7 @@ class Etd extends Component {
     render() {
         return (
             <ReactiveBase
-                app="etd_metadata"
+                app="30k"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{
@@ -210,25 +218,44 @@ class Etd extends Component {
 
                     <div className="container">
                         <div>
-                            <MultiList
+
+                            <MultiDataList
                                 componentId="filter_type-none"
-                                title="type-none"
                                 dataField="type-none"
-                                size={100}
+                                // size={100}
+                                data={
+                                    [{
+                                        label: "Thesis",
+                                        value: "thesis"
+                                    },
+                                    {
+                                        label: "Dissertation",
+                                        value: "Dissertation "
+                                    },]
+                                }
+                                title="Type"
                                 className="filter"
                             />
 
-                            <MultiDropdownList
+                            <MultiDataList
                                 componentId="filter_degree-level"
                                 dataField="degree-level"
-                                size={100}
-                                title="degree-level"
+                                data={
+                                    [{
+                                        label: "masters",
+                                        value: "masters"
+                                    }, {
+                                        label: "doctoral",
+                                        value: "doctoral"
+                                    },]
+                                }
+                                title="Degree Level"
                             />
 
                             <DateRange
                                 componentId="filter_date-issued"
                                 dataField="date-issued"
-                                title="date-issued"
+                                title="Date Issued"
                                 // customQuery={this.dateQuery}
                                 focused={false}
                                 autoFocusEnd={true}
@@ -263,7 +290,7 @@ class Etd extends Component {
                                                         <div
                                                             className="book-title"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: "<a href=\"" + "#" + "\" target=\"_blank\">\n" + res["title-none"] + "</a>",
+                                                                __html: "<a href=\"" + res["identifier-uri"] + "\" target=\"_blank\">\n" + res["title-none"] + "</a>",
                                                             }}
                                                         />
                                                     </ResultList.Title>
@@ -316,6 +343,13 @@ class Etd extends Component {
                                                                     __html: res["subject-none"],
                                                                 }}
                                                             />
+
+                                                            <div
+                                                                className="book-text"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: res["type-none"]
+                                                                }}
+                                                            />
                                                         </div>
                                                     </ResultList.Description>
 
@@ -353,7 +387,7 @@ class Tobacco extends Component {
     render() {
         return (
             <ReactiveBase
-                app="tobacco3"
+                app="tobacco"
                 // credentials="egdxpZGTu:54c431d1-6a44-44b8-b84a-e46c4fed2de6"
                 url={config.get('elasticsearch')}
                 theme={{
@@ -379,7 +413,7 @@ class Tobacco extends Component {
                             var newfieldsinput = "[";
                             for (var i = 0; i < fields.length; i++) {
                                 newfieldsinput = newfieldsinput + "\"" + fields[i] + "\"";
-                                if (i != fields.length - 1) { newfieldsinput += ","; }
+                                if (i !== fields.length - 1) { newfieldsinput += ","; }
 
                             }
                             newfieldsinput += "]";
@@ -454,7 +488,7 @@ class Tobacco extends Component {
                         <div>
                             <MultiList
                                 componentId="filter_Document_Type"
-                                title="Document_Type"
+                                title="Document Type"
                                 dataField="Document_Type"
                                 size={100}
                                 className="filter"
@@ -464,7 +498,7 @@ class Tobacco extends Component {
                                 componentId="filter_availablility"
                                 dataField="availablility"
                                 size={100}
-                                title="availablility"
+                                title="Availablility"
                                 className="filter"
                             />
 
@@ -472,14 +506,14 @@ class Tobacco extends Component {
                                 componentId="filter_availablilitystatus"
                                 dataField="availablilitystatus"
                                 size={100}
-                                title="availablilitystatus"
+                                title="Availablility Status"
                                 className="filter"
                             />
 
                             <DateRange
                                 componentId="filter_Document_Date"
                                 dataField="Document_Date"
-                                title="Document_Date"
+                                title="Document Date"
                                 // customQuery={this.dateQuery}
                                 focused={false}
                                 autoFocusEnd={true}
@@ -568,6 +602,7 @@ class Tobacco extends Component {
                                                                     __html: res.Organization_Mentioned,
                                                                 }}
                                                             />
+
                                                         </div>
                                                     </ResultList.Description>
 
